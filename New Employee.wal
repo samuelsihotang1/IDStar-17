@@ -1,0 +1,32 @@
+ùdefVar --name ID --type String --value "hengky@iftgroup.id"
+defVar --name Pass --type String --value "Hengky#17042002"
+defVar --name login_Failed --type String
+defVar --name task_target --type String --value Assignment
+webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\User\\AppData\\Local\\IBM Robotic Process Automation\\downloads"
+webNavigate --url "https://app.starconnect.id/login"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[2]/div/input"
+logMessage --message "Berhasil landing pada web" --type "Info"
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[2]/div/input" --simulatehuman 
+webSet --value "${ID}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[2]/div/input" --simulatehuman 
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[3]/div/input" --simulatehuman 
+webSet --value "${Pass}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[3]/div/input" --simulatehuman 
+webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[5]/button" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[1]/h5"
+webGet --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[1]/h5" login_Failed=value
+if --left "${login_Failed}" --operator "Equal_To" --right "*Invalid user credentials"
+	logMessage --message "Gagal login dikarenakan ID atau Password salah" --type "Info"
+	webClose --name Web --leavebrowseropen 
+	stopExecution
+endIf
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/home-profile/div/div[1]/div/div"
+logMessage --message "Berhasil login" --type "Info"
+webWaitElement --selector "XPath" --xpath "//*[@id=\"sidenav-collapse-main\"]/ul/li[20]/div[3]/ul/li[2]/div[1]/a"
+webClick --selector "XPath" --xpath "//*[@id=\"sidenav-collapse-main\"]/ul/li[20]/div[3]/ul/li[2]/div[1]/a" --comment "klik process manager"
+webWaitElement --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]"
+webClick --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]" --comment "klik create"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman  --comment "klik input agar dropdown"
+webSet --value "${task_target}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]"
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --comment "klik assignment report"
+webClose --name Web --leavebrowseropen *23.0.7.0
