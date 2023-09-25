@@ -1,7 +1,7 @@
-ÅdefVar --name ID --type String --value "hengky@iftgroup.id"
+òdefVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
-webStart --name Web --type "Chrome" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\User\\AppData\\Local\\IBM Robotic Process Automation\\downloads"
+webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\User\\AppData\\Local\\IBM Robotic Process Automation\\downloads"
 webNavigate --url "https://app.starconnect.id/login"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[2]/div/input"
 logMessage --message "Berhasil landing pada web" --type "Info"
@@ -10,8 +10,9 @@ webSet --value "${ID}" --selector "XPath" --xpath "/html/body/app-root/app-auth-
 webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[3]/div/input" --simulatehuman 
 webSet --value "${Pass}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[3]/div/input" --simulatehuman 
 webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[5]/button" --simulatehuman 
-webGet --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[1]" login_Failed=value
-if --left "${login_Failed}" --operator "Equal_To" --right "${login_Failed}"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[1]/h5"
+webGet --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[1]/h5" login_Failed=value
+if --left "${login_Failed}" --operator "Equal_To" --right "*Invalid user credentials"
 	logMessage --message "Gagal login dikarenakan ID atau Password salah" --type "Info"
 	webClose --name Web --leavebrowseropen 
 	stopExecution
