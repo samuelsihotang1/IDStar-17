@@ -1,4 +1,4 @@
-ÄdefVar --name ID --type String --value "hengky@iftgroup.i"
+ÅdefVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
 webStart --name Web --type "Chrome" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\User\\AppData\\Local\\IBM Robotic Process Automation\\downloads"
