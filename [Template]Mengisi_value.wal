@@ -1,0 +1,9 @@
+ùdefVar --name monthly_Report --type Excel
+defVar --name new_Employee --type DataTable
+defVar --name tes --type String
+defVar --name updated_Yable --type StringDictionary --innertype String
+excelOpen --file "D:\\ICStar\\Hackathon\\08. Monthly Employee Report TEMPLATE.xlsx" monthly_Report=value
+excelGetTable --file ${monthly_Report} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 7 --tocolumn 11 --hasheaders  new_Employee=value
+updateRow --index 1 --valuesmapping "{\"No\":\"1\"}" --dataTable ${new_Employee}
+excelSetTable --dataTable ${new_Employee} --file ${monthly_Report} --getfirstsheet  --row 6 --column 1
+excelClose --file ${monthly_Report} --save *23.0.7.0
