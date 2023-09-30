@@ -1,0 +1,26 @@
+ŠdefVar --name assignment_Report --type Excel
+defVar --name max_Row_Assignment --type Numeric
+defVar --name table_Asignment --type DataTable
+defVar --name biodata_Report --type Excel
+defVar --name max_Row_Biodata --type Numeric
+defVar --name table_Biodata --type DataTable
+defVar --name nama_Target --type String
+defVar --name find_Row --type Numeric
+defVar --name find_Column --type Numeric
+defVar --name filter_Target --type String
+//Proses pengambilan tabel dari excell
+excelOpen --file "D:\\ICStar\\Hackathon\\00213_SPM_IX_2023.xlsx" assignment_Report=value
+excelGetTable --file ${assignment_Report} --getfirstsheet  --entiretable  max_Row_Assignment=rows
+excelGetTable --file ${assignment_Report} --getfirstsheet  --fromrow 4 --fromcolumn 1 --torow ${max_Row_Assignment} --tocolumn 35 table_Asignment=value
+excelClose --file ${assignment_Report}
+excelOpen --file "D:\\ICStar\\Hackathon\\00215_SPM_IX_2023.xlsx" biodata_Report=value
+excelGetTable --file ${biodata_Report} --getfirstsheet  --entiretable  --hasheaders  max_Row_Biodata=rows
+excelGetTable --file ${biodata_Report} --getfirstsheet  --fromrow 2 --fromcolumn 1 --torow ${max_Row_Biodata} --tocolumn 31 --hasheaders  table_Biodata=value
+excelClose --file ${biodata_Report}
+//Proses pengambilan value yang ingin dicari
+getTableCell --dataTable ${table_Asignment} --column 2 --row 1 nama_Target=value
+//Proses pencarian value dengan menghasilkan row dan column
+findTableCell --dataTable ${table_Biodata} --value "${nama_Target}" --search "AllCells" --direction "Top2BottomLeft2Right" --occurrencetype "First" find_Row=row find_Column=column
+//Proses pengambilan value dari row dan column 
+getTableCell --dataTable ${table_Biodata} --column ${find_Column} --row ${find_Row} filter_Target=value
+logMessage --message "\r\nNama dicari = ${nama_Target}\r\n\r\nterdapat pada file y dengan value\r\nRow = ${find_Row}\r\nColumn = ${find_Column}\r\nValue = ${filter_Target}\r\n\r\nrow pada file = row + 2\r\nhal tersebut dikarenakan header dan judul pada row 1 dan 2" --type "Info"*23.0.7.0

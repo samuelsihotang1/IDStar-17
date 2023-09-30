@@ -11,6 +11,7 @@ defVar --name iteration --type Numeric --value 1
 excelOpen --file "D:\\ICStar\\Hackathon\\00213_SPM_IX_2023.xlsx" file_Assignment=value
 excelGetTable --file ${file_Assignment} --getfirstsheet  --entiretable  max_Row_Assignment=rows
 excelGetTable --file ${file_Assignment} --getfirstsheet  --fromrow 4 --fromcolumn 1 --torow ${max_Row_Assignment} --tocolumn 35 table_Asignment=value
+excelClose --file ${file_Assignment}
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right 3
 	getTableCell --dataTable ${table_Asignment} --column 2 --row ${iteration} nama_Target=value
 	getTableCell --dataTable ${table_Asignment} --column 3 --row ${iteration} tanggal_Masuk_Target=value
@@ -20,5 +21,4 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right 3
 	getTableCell --dataTable ${table_Asignment} --column 20 --row ${iteration} job_Target=value
 	logMessage --message "Nama = ${nama_Target}\r\nCompany = ${company_Target}\r\nDepartemen = ${departemen_Target}\r\nJabatan = ${job_Target}\r\nTanggal Masuk = ${tanggal_Masuk_Target}\r\nGrade = ${grade_Target}" --type "Info"
 	incrementVar --number ${iteration}
-endWhile
-excelClose --file ${file_Assignment}*23.0.7.0
+endWhile*23.0.7.0
