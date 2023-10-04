@@ -1,4 +1,4 @@
-ÚLdefVar --name ID --type String --value "hengky@iftgroup.id"
+½EdefVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
 defVar --name target_Assignment --type String --value Assignment
@@ -38,11 +38,7 @@ webSet --value "${target_Assignment}" --selector "XPath" --xpath "/html/body/app
 webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]"
 //	Pengisian form assignment
 webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --comment "klik assignment report"
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[1]/div[2]/git-datepicker/div/label/input"
-getCurrentDateAndTime --localorutc "LocalTime" date_Time=value
-dateTimeToText --culture "en-US" --date "${date_Time}" --usecustomformat  --customformat "dd-MMM-yyyy" text_Date_Time=value
-webSet --value "${text_Date_Time}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[2]/div/git-datepicker/div/label[2]" --simulatehuman  --comment "Mengisi value dari date time"
-delay --timeout "00:00:03"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]"
 webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
 //	Menunggu file bisa didownload
@@ -64,11 +60,8 @@ webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-ad
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
 webSet --value "${target_Biodata}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
 webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]"
-//	Pengisian form assignment
-webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --comment "klik assignment report"
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[1]/div[2]/git-datepicker/div/label/input"
-webSet --value "${text_Date_Time}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[2]/div/git-datepicker/div/label[2]" --simulatehuman  --comment "Mengisi value dari date time"
-delay --timeout "00:00:03"
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --comment "klik biodatareport"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]"
 webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
 //	Menunggu file bisa didownload
