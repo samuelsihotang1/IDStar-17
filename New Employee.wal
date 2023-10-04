@@ -1,4 +1,4 @@
-¦HdefVar --name ID --type String --value "hengky@iftgroup.id"
+ÚLdefVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
 defVar --name target_Assignment --type String --value Assignment
@@ -29,26 +29,27 @@ webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/
 logMessage --message "Berhasil login" --type "Info"
 //Navigasi
 webNavigate --url "https://app.starconnect.id/tools/process-manager"
+//Proses File Assignment
+//	Navigasi form download
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]"
 webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman  --comment "klik input agar dropdown"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
 webSet --value "${target_Assignment}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
-webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[7]"
-//Pengisian form assignment
-webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[7]" --comment "klik assignment report"
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]"
+//	Pengisian form assignment
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --comment "klik assignment report"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[1]/div[2]/git-datepicker/div/label/input"
-stopExecution
 getCurrentDateAndTime --localorutc "LocalTime" date_Time=value
 dateTimeToText --culture "en-US" --date "${date_Time}" --usecustomformat  --customformat "dd-MMM-yyyy" text_Date_Time=value
 webSet --value "${text_Date_Time}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[2]/div/git-datepicker/div/label[2]" --simulatehuman  --comment "Mengisi value dari date time"
 delay --timeout "00:00:03"
-webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
-//Menunggu file bisa didownload
+//	Menunggu file bisa didownload
 delay --timeout "00:00:30"
-webRefresh
-webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body" --simulatehuman 
 webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  assignment_File_Name=value
+webRefresh
 replaceText --texttoparse "${assignment_File_Name}" --textpattern "/" --replacement _ assignment_File_Name=value
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button=value
 if --left "${download_Button}" --operator "Is_True"
@@ -56,25 +57,25 @@ if --left "${download_Button}" --operator "Is_True"
 elseIf --left "${download_Button}" --operator "Is_True" --negate 
 	logMessage --message "Tidak terdapat download button" --type "Info"
 endIf
-webClick --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]"
 //Proses untuk  Biodata
-webWaitElement --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]"
-//Buat form
-webClick --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]" --comment "klik create"
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
-webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman  --comment "klik input agar dropdown"
-webSet --value "${target_Biodata}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]"
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman  --comment "klik input agar dropdown"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
+webSet --value "${target_Biodata}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
 webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]"
-webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --comment "klik biodata report"
+//	Pengisian form assignment
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --comment "klik assignment report"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[1]/div[2]/git-datepicker/div/label/input"
 webSet --value "${text_Date_Time}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[4]/div[2]/div/git-datepicker/div/label[2]" --simulatehuman  --comment "Mengisi value dari date time"
 delay --timeout "00:00:03"
-webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --comment "Klik Submit"
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
-//Menunggu file bisa didownload
+//	Menunggu file bisa didownload
 delay --timeout "00:02:30"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body" --simulatehuman 
+webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  assignment_File_Name=value
 webRefresh
-webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
-webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  biodata_File_Name=value
 replaceText --texttoparse "${biodata_File_Name}" --textpattern "/" --replacement _ assignment_File_Name=value
 webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button=value
 if --left "${download_Button}" --operator "Is_True"
@@ -82,6 +83,6 @@ if --left "${download_Button}" --operator "Is_True"
 elseIf --left "${download_Button}" --operator "Is_True" --negate 
 	logMessage --message "Tidak terdapat download button" --type "Info"
 endIf
-webClick --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]"
 delay --timeout "00:00:30"
-webClose --name Web --leavebrowseropen *23.0.7.0
+webClose --name Web*23.0.7.0
