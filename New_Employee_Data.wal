@@ -1,4 +1,4 @@
-ÜOdefVar --name max_Row_Assignment --type Numeric
+‚adefVar --name max_Row_Assignment --type Numeric
 defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
 defVar --name assignment_File --type Excel
 defVar --name table_Asignment --type DataTable
@@ -41,7 +41,24 @@ defVar --name other_File --type Excel
 defVar --name potongGaji_Table --type DataTable
 defVar --name input_One_newEmployee_Iteration --type Numeric --value 1
 defVar --name input_Other_newEmployee_Iteration --type Numeric --value 1
-//Assignment
+defVar --name delete_Tanggal_Batas_Atas --type Numeric --value 45158
+defVar --name delete_Tanggl_Batas_Tengah --type Numeric --value 45190
+defVar --name delete_Batas_Bawah --type Numeric --value 45199
+defVar --name BPJSTK_Data --type String
+defVar --name KTP_Data --type String
+defVar --name golonganDarah_Data --type String
+defVar --name tanggalLahir_Data --type String
+defVar --name jenisKelamin_Data --type String
+defVar --name statusPernikahan_Data --type String
+defVar --name nomorHP_Data --type String
+defVar --name email_Data --type String
+defVar --name NPWP_Data --type String
+defVar --name BPJSK_Data --type String
+defVar --name tanggalSelesai_Data --type String
+defVar --name statusKerja_Data --type String
+defVar --name benchmark --type Numeric
+//Membaca File Excel
+//	Assignment
 excelOpen --file "${assignment_Directory}" file_Check=success assignment_File=value
 logMessage --message "\r\nAssignment\r\nSataus buka file = ${file_Check}" --type "Info"
 excelGetTable --file ${assignment_File} --getfirstsheet  --entiretable  max_Row_Assignment=rows
@@ -51,7 +68,7 @@ getTableCell --dataTable ${table_Asignment} --column 1 --row 1 content_Check=val
 getTableCell --dataTable ${table_Asignment} --column 1 --row ${row_Check} content_Check_Last=value
 logMessage --message "\r\nrow = ${row_Check}\r\ncolumn = ${column_Check}\r\nfirst content = ${content_Check}\r\nlast content = ${content_Check_Last}" --type "Info"
 excelClose --file ${assignment_File}
-//Biodata
+//	Biodata
 excelOpen --file "${biodata_Directory}" file_Check=success biodata_File=value
 logMessage --message "\r\nBiodata\r\nSataus buka file = ${file_Check}" --type "Info"
 excelGetTable --file ${biodata_File} --getfirstsheet  --entiretable  max_Row_Biodata=rows
@@ -61,7 +78,7 @@ getTableCell --dataTable ${table_Biodata} --column 1 --row 1 content_Check=value
 getTableCell --dataTable ${table_Biodata} --column 1 --row ${max_Row_Biodata} content_Check_Last=value
 logMessage --message "\r\nrow = ${row_Check}\r\ncolumn = ${column_Check}\r\nfirst content = ${content_Check}\r\nlast content = ${content_Check_Last}" --type "Info"
 excelClose --file ${assignment_File}
-//Report
+//	Report
 excelOpen --file "${report_Directory}" file_Check=success report_File=value
 logMessage --message "\r\nReport\r\nSataus buka file = ${file_Check}" --type "Info"
 excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 11 --hasheaders  newEmployee_One_Table=value row_Check=rows column_Check=columns
@@ -69,43 +86,54 @@ excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 
 excelGetTable --file ${report_File} --getfirstsheet  --fromrow 14 --fromcolumn 1 --torow 15 --tocolumn 15 --hasheaders  potongGaji_Table=value
 addRow --valuesmapping "{\"1\":\"null\",\"2\":\"null\",\"3\":\"null\",\"4\":\"null\",\"5\":\"null\",\"6\":\"null\",\"7\":\"null\",\"8\":\"null\",\"9\":\"null\",\"10\":\"null\",\"11\":\"null\",\"12\":\"null\",\"13\":\"null\",\"14\":\"null\",\"15\":\"null\"}" --dataTable ${potongGaji_Table}
 excelClose --file ${assignment_File}
-//Value biodata
-//	Data filter
+//Proses Input Data kedalam temp table
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
 	getTableCell --dataTable ${table_Biodata} --column 7 --row ${iteration} tanggalMasuk_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 3 --row ${iteration} company_Data=value
-	//	Data Core
-	getTableCell --dataTable ${table_Biodata} --column 2 --row ${iteration} nama_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 5 --row ${iteration} department_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 30 --row ${iteration} accountNumber_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 28 --row ${iteration} bank_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 6 --row ${iteration} jabatan_Data=value
-	getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} NIK_Data=value
-	//	Unique Key
-	getTableCell --dataTable ${table_Biodata} --column 1 --row ${iteration} unique_Data=value
-	//Value assignment
-	//	Joining data
-	findTableCell --dataTable ${table_Asignment} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
-	getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
-	//logMessage --message "No = 1\r\nNIK = ${NIK_Data}\r\nNama = ${nama_Data}\r\nCompany = ${company_Data}\r\nDepartment = ${department_Data}\r\nAcc Number = ${accountNumber_Data}\r\nBank = ${bank_Data}\r\nJabatan = ${jabatan_Data}\r\nTanggal Masuk = ${tanggalMasuk_Data}\r\nGrade = ${grade_Data}\r\nKeterangan = " --type "Info"
-	//Klasifikasi Data berdasarkan perusahaan
-	if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
-		setVar --name "${company_Classification}" --value A
-	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
-		setVar --name "${company_Classification}" --value A
-	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
-		setVar --name "${company_Classification}" --value A
-	else
-		setVar --name "${company_Classification}" --value B
-	endIf
-	//logMessage --message "Klasifikasi company = ${company_Classification}" --type "Info"
-	//Memasukan data sesuai klasifikasi perusahaan
-	if --left "${company_Classification}" --operator "Equal_To" --right A
-		addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
-		incrementVar --number ${one_Iteration}
-	else
-		addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
-		incrementVar --number ${other_Iteration}
+	convertStringToNumber --text "${tanggalMasuk_Data}" benchmark=value
+	if --left "${benchmark}" --operator "Less_Than_Equal_To" --right 45190
+		getTableCell --dataTable ${table_Biodata} --column 3 --row ${iteration} company_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 2 --row ${iteration} nama_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 5 --row ${iteration} department_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 30 --row ${iteration} accountNumber_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 28 --row ${iteration} bank_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 6 --row ${iteration} jabatan_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} NIK_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 23 --row ${iteration} BPJSTK_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} KTP_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 8 --row ${iteration} tanggalLahir_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 12 --row ${iteration} golonganDarah_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 13 --row ${iteration} jenisKelamin_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 14 --row ${iteration} statusPernikahan_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 16 --row ${iteration} nomorHP_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 18 --row ${iteration} email_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 12 --row ${iteration} NPWP_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 24 --row ${iteration} BPJSK_Data=value
+		getTableCell --dataTable ${table_Biodata} --column 1 --row ${iteration} unique_Data=value
+		findTableCell --dataTable ${table_Asignment} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
+		getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
+		getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
+		getTableCell --dataTable ${table_Asignment} --column 10 --row ${unique_Row} tanggalSelesai_Data=value
+		getTableCell --dataTable ${table_Asignment} --column 5 --row ${unique_Row} statusKerja_Data=value
+		//logMessage --message "No = 1\r\nNIK = ${NIK_Data}\r\nNama = ${nama_Data}\r\nCompany = ${company_Data}\r\nDepartment = ${department_Data}\r\nAcc Number = ${accountNumber_Data}\r\nBank = ${bank_Data}\r\nJabatan = ${jabatan_Data}\r\nTanggal Masuk = ${tanggalMasuk_Data}\r\nGrade = ${grade_Data}\r\nKeterangan = " --type "Info"
+		//	Klasifikasi Data berdasarkan perusahaan
+		if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+			setVar --name "${company_Classification}" --value A
+		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+			setVar --name "${company_Classification}" --value A
+		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+			setVar --name "${company_Classification}" --value A
+		else
+			setVar --name "${company_Classification}" --value B
+		endIf
+		//logMessage --message "Klasifikasi company = ${company_Classification}" --type "Info"
+		//Memasukan data sesuai klasifikasi perusahaan
+		if --left "${company_Classification}" --operator "Equal_To" --right A
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
+			incrementVar --number ${one_Iteration}
+		else
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
+			incrementVar --number ${other_Iteration}
+		endIf
 	endIf
 	incrementVar --number ${iteration}
 endWhile
@@ -113,7 +141,8 @@ getTableCell --dataTable ${newEmployee_One_Table} --column 2 --row 2 one_Check=v
 getTableCell --dataTable ${newEmployee_Other_Table} --column 2 --row 2 other_Check=value
 logMessage --message "${one_Check}\r\n${other_Check}" --type "Info"
 //Memasukan value ke report
-//	One familly
+//	One Report
+//		New Employee
 excelOpen --file "${one_Directory}" one_File=value
 excelSetTable --dataTable ${newEmployee_One_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell A5
 while --left "${input_One_newEmployee_Iteration}" --operator "Less_Than_Equal_To" --right 7
@@ -124,7 +153,8 @@ excelSet --value "Pemotongan Gaji Karyawan" --file ${one_File} --getfirstsheet  
 incrementVar --number ${one_Iteration}
 excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Iteration}"
 excelClose --file ${one_File} --save 
-//	Other familly
+//	Other Report
+//		New Employee
 excelOpen --file "${other_Directory}" other_File=value
 excelSetTable --dataTable ${newEmployee_Other_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell A5
 while --left "${input_Other_newEmployee_Iteration}" --operator "Less_Than_Equal_To" --right 7
