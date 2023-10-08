@@ -1,4 +1,4 @@
-‚adefVar --name max_Row_Assignment --type Numeric
+ÄedefVar --name max_Row_Assignment --type Numeric
 defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
 defVar --name assignment_File --type Excel
 defVar --name table_Asignment --type DataTable
@@ -27,7 +27,7 @@ defVar --name unique_Data --type String
 defVar --name unique_Row --type Numeric
 defVar --name grade_Data --type String
 defVar --name NIK_Data --type String
-defVar --name company_Classification --type String
+defVar --name company_Classification --type Boolean
 defVar --name one_Iteration --type Numeric --value 1
 defVar --name other_Iteration --type Numeric --value 1
 defVar --name one_Check --type String
@@ -57,6 +57,8 @@ defVar --name BPJSK_Data --type String
 defVar --name tanggalSelesai_Data --type String
 defVar --name statusKerja_Data --type String
 defVar --name benchmark --type Numeric
+defVar --name position_Data --type String
+defVar --name internship_Classification --type Boolean
 //Membaca File Excel
 //	Assignment
 excelOpen --file "${assignment_Directory}" file_Check=success assignment_File=value
@@ -90,7 +92,7 @@ excelClose --file ${assignment_File}
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
 	getTableCell --dataTable ${table_Biodata} --column 7 --row ${iteration} tanggalMasuk_Data=value
 	convertStringToNumber --text "${tanggalMasuk_Data}" benchmark=value
-	if --left "${benchmark}" --operator "Less_Than_Equal_To" --right 45190
+	if --left "${benchmark}" --operator "Greater_Than" --right 45158
 		getTableCell --dataTable ${table_Biodata} --column 3 --row ${iteration} company_Data=value
 		getTableCell --dataTable ${table_Biodata} --column 2 --row ${iteration} nama_Data=value
 		getTableCell --dataTable ${table_Biodata} --column 5 --row ${iteration} department_Data=value
@@ -111,31 +113,41 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 		getTableCell --dataTable ${table_Biodata} --column 1 --row ${iteration} unique_Data=value
 		findTableCell --dataTable ${table_Asignment} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
 		getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
-		getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
+		getTableCell --dataTable ${table_Asignment} --column 24 --row ${unique_Row} position_Data=value
 		getTableCell --dataTable ${table_Asignment} --column 10 --row ${unique_Row} tanggalSelesai_Data=value
 		getTableCell --dataTable ${table_Asignment} --column 5 --row ${unique_Row} statusKerja_Data=value
 		//logMessage --message "No = 1\r\nNIK = ${NIK_Data}\r\nNama = ${nama_Data}\r\nCompany = ${company_Data}\r\nDepartment = ${department_Data}\r\nAcc Number = ${accountNumber_Data}\r\nBank = ${bank_Data}\r\nJabatan = ${jabatan_Data}\r\nTanggal Masuk = ${tanggalMasuk_Data}\r\nGrade = ${grade_Data}\r\nKeterangan = " --type "Info"
 		//	Klasifikasi Data berdasarkan perusahaan
 		if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
-			setVar --name "${company_Classification}" --value A
+			setVar --name "${company_Classification}" --value True
 		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
-			setVar --name "${company_Classification}" --value A
+			setVar --name "${company_Classification}" --value True
 		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
-			setVar --name "${company_Classification}" --value A
+			setVar --name "${company_Classification}" --value True
 		else
-			setVar --name "${company_Classification}" --value B
+			setVar --name "${company_Classification}" --value False
 		endIf
 		//logMessage --message "Klasifikasi company = ${company_Classification}" --type "Info"
-		//Memasukan data sesuai klasifikasi perusahaan
-		if --left "${company_Classification}" --operator "Equal_To" --right A
-			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
-			incrementVar --number ${one_Iteration}
+		//	Klasifikasi data berdasarkan Internship atau tidak
+		if --left "${position_Data}" --operator "Contains" --right Internship
+			setVar --name "${internship_Classification}" --value True
 		else
-			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
-			incrementVar --number ${other_Iteration}
+			setVar --name "${internship_Classification}" --value False
 		endIf
+		//Memasukan data sesuai klasifikasi perusahaan
+		if --left "${internship_Classification}" --operator "Is_True" --negate 
+			if --left "${company_Classification}" --operator "Is_True"
+				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
+				incrementVar --number ${one_Iteration}
+			elseIf --left "${company_Classification}" --operator "Is_True" --negate 
+				addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
+				incrementVar --number ${other_Iteration}
+			endIf
+			incrementVar --number ${iteration}
+		else
+		endIf
+		incrementVar --number ${iteration}
 	endIf
-	incrementVar --number ${iteration}
 endWhile
 getTableCell --dataTable ${newEmployee_One_Table} --column 2 --row 2 one_Check=value
 getTableCell --dataTable ${newEmployee_Other_Table} --column 2 --row 2 other_Check=value
