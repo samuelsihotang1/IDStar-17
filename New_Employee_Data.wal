@@ -1,4 +1,4 @@
-ÄedefVar --name max_Row_Assignment --type Numeric
+ŸšdefVar --name max_Row_Assignment --type Numeric
 defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
 defVar --name assignment_File --type Excel
 defVar --name table_Asignment --type DataTable
@@ -59,6 +59,20 @@ defVar --name statusKerja_Data --type String
 defVar --name benchmark --type Numeric
 defVar --name position_Data --type String
 defVar --name internship_Classification --type Boolean
+defVar --name pendaftaranBPJSTK_One_Table --type DataTable
+defVar --name pendaftaranBPJSTK_Other_Table --type DataTable
+defVar --name nonaktifBPJSTK_One_Table --type DataTable
+defVar --name nonaktifBPJSTK_Other_Table --type DataTable
+defVar --name aktifBPJSK_One_Table --type DataTable
+defVar --name aktifBPJSK_Other_Table --type DataTable
+defVar --name nonAktifBPJSK_One_Table --type DataTable
+defVar --name nonAktifBPJSK_Other_Table --type DataTable
+defVar --name newEmployee_One_Row --type Numeric
+defVar --name newEmployee_Other_Row --type Numeric
+defVar --name BPJSTKAktif_One_Row --type Numeric
+defVar --name BPJSKAktif_One_Row --type Numeric
+defVar --name BPJSTKAktif_Other_Row --type Numeric
+defVar --name BPJSKAktif_Other_Row --type Numeric
 //Membaca File Excel
 //	Assignment
 excelOpen --file "${assignment_Directory}" file_Check=success assignment_File=value
@@ -83,12 +97,29 @@ excelClose --file ${assignment_File}
 //	Report
 excelOpen --file "${report_Directory}" file_Check=success report_File=value
 logMessage --message "\r\nReport\r\nSataus buka file = ${file_Check}" --type "Info"
+//		New Employee
 excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 11 --hasheaders  newEmployee_One_Table=value row_Check=rows column_Check=columns
 excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 11 --hasheaders  newEmployee_Other_Table=value row_Check=rows column_Check=columns
+//		Potongan Gaji
 excelGetTable --file ${report_File} --getfirstsheet  --fromrow 14 --fromcolumn 1 --torow 15 --tocolumn 15 --hasheaders  potongGaji_Table=value
+//		BPJSTK
+//			Pendaftaran
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 16 --hasheaders  pendaftaranBPJSTK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 16 --hasheaders  pendaftaranBPJSTK_Other_Table=value
+//			Penonaktifan
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 4 --hasheaders  nonaktifBPJSTK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 4 --hasheaders  nonaktifBPJSTK_Other_Table=value
+//		BPJSK
+//			Aktif
+excelGetTable --file ${report_File} --sheet BPJSK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 9 --hasheaders  aktifBPJSK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 9 --hasheaders  aktifBPJSK_Other_Table=value
+//			Non Aktif
+excelGetTable --file ${report_File} --sheet BPJSK --fromrow 18 --fromcolumn 1 --torow 19 --tocolumn 8 --hasheaders  nonAktifBPJSK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSK --fromrow 18 --fromcolumn 1 --torow 19 --tocolumn 8 --hasheaders  nonAktifBPJSK_Other_Table=value
 addRow --valuesmapping "{\"1\":\"null\",\"2\":\"null\",\"3\":\"null\",\"4\":\"null\",\"5\":\"null\",\"6\":\"null\",\"7\":\"null\",\"8\":\"null\",\"9\":\"null\",\"10\":\"null\",\"11\":\"null\",\"12\":\"null\",\"13\":\"null\",\"14\":\"null\",\"15\":\"null\"}" --dataTable ${potongGaji_Table}
 excelClose --file ${assignment_File}
 //Proses Input Data kedalam temp table
+//	New Employee
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
 	getTableCell --dataTable ${table_Biodata} --column 7 --row ${iteration} tanggalMasuk_Data=value
 	convertStringToNumber --text "${tanggalMasuk_Data}" benchmark=value
@@ -138,14 +169,19 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 		if --left "${internship_Classification}" --operator "Is_True" --negate 
 			if --left "${company_Classification}" --operator "Is_True"
 				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
+				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_One_Table}
+				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_One_Table}
 				incrementVar --number ${one_Iteration}
 			elseIf --left "${company_Classification}" --operator "Is_True" --negate 
 				addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
+				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_Other_Table}
+				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_Other_Table}
 				incrementVar --number ${other_Iteration}
 			endIf
-			incrementVar --number ${iteration}
 		else
+			incrementVar --number ${iteration}
 		endIf
+	else
 		incrementVar --number ${iteration}
 	endIf
 endWhile
@@ -157,23 +193,57 @@ logMessage --message "${one_Check}\r\n${other_Check}" --type "Info"
 //		New Employee
 excelOpen --file "${one_Directory}" one_File=value
 excelSetTable --dataTable ${newEmployee_One_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell A5
-while --left "${input_One_newEmployee_Iteration}" --operator "Less_Than_Equal_To" --right 7
-	incrementVar --number ${one_Iteration}
-	incrementVar --number ${input_One_newEmployee_Iteration}
-endWhile
+excelGetTable --file ${one_File} --getfirstsheet  --entiretable  newEmployee_One_Row=rows
+evaluate --expression "${newEmployee_One_Row}+7" one_Iteration=value
+//		Pemotongan Gaji Karyawan
 excelSet --value "Pemotongan Gaji Karyawan" --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Iteration}"
 incrementVar --number ${one_Iteration}
 excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Iteration}"
+//		BPJSTK
+setVar --name "${one_Iteration}" --value 1
+excelSetTable --dataTable ${pendaftaranBPJSTK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${one_File} --sheet BPJSTK --entiretable  BPJSTKAktif_One_Row=rows
+evaluate --expression "${BPJSTKAktif_One_Row}+5" one_Iteration=value
+//		Non aktif BPJSTK
+excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Iteration}"
+incrementVar --number ${one_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Iteration}"
+//		BPJSK
+setVar --name "${one_Iteration}" --value 1
+excelSetTable --dataTable ${pendaftaranBPJSTK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${one_File} --sheet "BPJS Kesehatn" --entiretable  BPJSKAktif_One_Row=rows
+evaluate --expression "${BPJSKAktif_One_Row}+5" one_Iteration=value
+//		Non aktif BPJSK
+excelSet --value "Penonaktifan BPJS Kesehatan" --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Iteration}"
+incrementVar --number ${one_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatn" --usingcell  --cell "A${one_Iteration}"
 excelClose --file ${one_File} --save 
 //	Other Report
 //		New Employee
 excelOpen --file "${other_Directory}" other_File=value
 excelSetTable --dataTable ${newEmployee_Other_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell A5
-while --left "${input_Other_newEmployee_Iteration}" --operator "Less_Than_Equal_To" --right 7
-	incrementVar --number ${other_Iteration}
-	incrementVar --number ${input_Other_newEmployee_Iteration}
-endWhile
+excelGetTable --file ${other_File} --getfirstsheet  --entiretable  newEmployee_Other_Row=rows
+evaluate --expression "${newEmployee_Other_Row}+7" other_Iteration=value
+//		Pemotongan Gaji Karyawan
 excelSet --value "Pemotongan Gaji Karyawan" --file ${other_File} --getfirstsheet  --usingcell  --cell "A${other_Iteration}"
 incrementVar --number ${other_Iteration}
 excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell "A${other_Iteration}"
+//		BPJSTK
+setVar --name "${other_Iteration}" --value 1
+excelSetTable --dataTable ${pendaftaranBPJSTK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${other_File} --sheet BPJSTK --entiretable  BPJSTKAktif_Other_Row=rows
+evaluate --expression "${BPJSTKAktif_Other_Row}+5" other_Iteration=value
+//		Non aktif BPJSTK
+excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Iteration}"
+incrementVar --number ${other_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Iteration}"
+//		BPJSK
+setVar --name "${other_Iteration}" --value 1
+excelSetTable --dataTable ${pendaftaranBPJSTK_Other_Table} --headers  --file ${Other_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${Other_File} --sheet "BPJS Kesehatn" --entiretable  BPJSKAktif_Other_Row=rows
+evaluate --expression "${BPJSKAktif_Other_Row}+5" one_Iteration=value
+//		Non aktif BPJSK
+excelSet --value "Penonaktifan BPJS Kesehatan" --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Iteration}"
+incrementVar --number ${other_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet "BPJS Kesehatn" --usingcell  --cell "A${other_Iteration}"
 excelClose --file ${other_File} --save *23.0.7.0
