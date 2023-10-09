@@ -1,4 +1,4 @@
-Å“//Directory
+·Å//Directory
 defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
 defVar --name biodata_Directory --type String --value "D:\\ICStar\\Hackathon\\Biodata.xlsx"
 defVar --name report_Directory --type String --value "D:\\ICStar\\Hackathon\\Report.xlsx"
@@ -24,8 +24,10 @@ defVar --name aktifBPJSK_One_Table --type DataTable
 defVar --name aktifBPJSK_Other_Table --type DataTable
 defVar --name nonAktifBPJSK_One_Table --type DataTable
 defVar --name nonAktifBPJSK_Other_Table --type DataTable
+defVar --name Internship_One_Table --type DataTable
+defVar --name Internship_Other_Table --type DataTable
 //Data
-defVar --name tanggalMasuk_Data --type String
+defVar --name tanggalMasuk_Data_Biodata --type String
 defVar --name company_Data --type String
 defVar --name nama_Data --type String
 defVar --name department_Data --type String
@@ -48,14 +50,30 @@ defVar --name BPJSK_Data --type String
 defVar --name tanggalSelesai_Data --type String
 defVar --name statusKerja_Data --type String
 defVar --name position_Data --type String
+defVar --name tanggalMasuk_Data_Assignment --type String
 //Klasifikasi
-defVar --name company_Classification --type Boolean
-defVar --name internship_Classification --type Boolean
+defVar --name company_Classification --type Boolean --value False
+defVar --name internship_Classification --type Boolean --value False
 defVar --name delete_Tanggal_Batas_Atas --type Numeric --value 45158
 defVar --name delete_Tanggl_Batas_Tengah --type Numeric --value 45190
 defVar --name delete_Batas_Bawah --type Numeric --value 45199
-defVar --name benchmark --type Numeric
+defVar --name benchmark_NewEmployee --type Numeric
 defVar --name unique_Row --type Numeric
+defVar --name benchmark_Internship --type Numeric
+defVar --name newEmployee_Classification --type Boolean --value False
+defVar --name max_Internship_Date_Calculation --type Boolean --value False
+defVar --name newEmployee_Group --type Boolean --value False
+defVar --name internship_Group --type Boolean --value False
+defVar --name min_NewEmployee_Date_Calculation --type Boolean --value False
+defVar --name min_Internship_Date_Calculation --type Boolean --value False
+defVar --name internship__Date_Classification --type Boolean --value False
+defVar --name newEmployee_Date_Classification --type Boolean --value False
+defVar --name internship_Group_Calculation --type Boolean --value False
+defVar --name newEmployee_Group_Calculation --type Boolean --value False
+defVar --name newEmployee_Classification_Calculation --type Boolean --value False
+defVar --name internship_Classification_Calculation --type Boolean --value False
+defVar --name max_NewEmployee_Date_Calculation --type Boolean --value False
+defVar --name skip --type Boolean --value False
 //Iterasi
 defVar --name iteration --type Numeric --value 1
 defVar --name one_Iteration --type Numeric --value 1
@@ -64,6 +82,8 @@ defVar --name input_One_newEmployee_Iteration --type Numeric --value 1
 defVar --name input_Other_newEmployee_Iteration --type Numeric --value 1
 defVar --name one_Excel_Iteration --type Numeric
 defVar --name other_Excel_Iteration --type Numeric
+defVar --name internship_One_Iteration --type Numeric --value 1
+defVar --name internship_Other_Iteration --type Numeric --value 1
 //Check
 //	Row
 defVar --name row_Check --type Numeric
@@ -115,77 +135,126 @@ excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 4 --fromc
 //			Non Aktif
 excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 8 --hasheaders  nonAktifBPJSK_One_Table=value
 excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 8 --hasheaders  nonAktifBPJSK_Other_Table=value
-//addRow --valuesmapping "{\"1\":\"null\",\"2\":\"null\",\"3\":\"null\",\"4\":\"null\",\"5\":\"null\",\"6\":\"null\",\"7\":\"null\",\"8\":\"null\",\"9\":\"null\",\"10\":\"null\",\"11\":\"null\",\"12\":\"null\",\"13\":\"null\",\"14\":\"null\",\"15\":\"null\"}" --dataTable ${potongGaji_Table}
+//		Internship
+excelGetTable --file ${report_File} --sheet Internship --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 21 --hasheaders  Internship_One_Table=value
+excelGetTable --file ${report_File} --sheet Internship --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 21 --hasheaders  Internship_Other_Table=value
 excelClose --file ${assignment_File}
 //Proses Input Data kedalam temp table
 //	New Employee
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
-	getTableCell --dataTable ${table_Biodata} --column 7 --row ${iteration} tanggalMasuk_Data=value
-	convertStringToNumber --text "${tanggalMasuk_Data}" benchmark=value
-	if --left "${benchmark}" --operator "Greater_Than" --right 45158
-		getTableCell --dataTable ${table_Biodata} --column 3 --row ${iteration} company_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 2 --row ${iteration} nama_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 5 --row ${iteration} department_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 30 --row ${iteration} accountNumber_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 28 --row ${iteration} bank_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 6 --row ${iteration} jabatan_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} NIK_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 23 --row ${iteration} BPJSTK_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} KTP_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 8 --row ${iteration} tanggalLahir_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 12 --row ${iteration} golonganDarah_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 13 --row ${iteration} jenisKelamin_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 14 --row ${iteration} statusPernikahan_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 16 --row ${iteration} nomorHP_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 18 --row ${iteration} email_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 12 --row ${iteration} NPWP_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 24 --row ${iteration} BPJSK_Data=value
-		getTableCell --dataTable ${table_Biodata} --column 1 --row ${iteration} unique_Data=value
-		findTableCell --dataTable ${table_Asignment} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
-		getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
-		getTableCell --dataTable ${table_Asignment} --column 24 --row ${unique_Row} position_Data=value
-		getTableCell --dataTable ${table_Asignment} --column 10 --row ${unique_Row} tanggalSelesai_Data=value
-		getTableCell --dataTable ${table_Asignment} --column 5 --row ${unique_Row} statusKerja_Data=value
-		//	Klasifikasi Data berdasarkan perusahaan
-		if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
-			setVar --name "${company_Classification}" --value True
-		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
-			setVar --name "${company_Classification}" --value True
-		elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
-			setVar --name "${company_Classification}" --value True
-		else
-			setVar --name "${company_Classification}" --value False
-		endIf
-		//	Klasifikasi data berdasarkan Internship atau tidak
-		if --left "${position_Data}" --operator "Contains" --right Internship
-			setVar --name "${internship_Classification}" --value True
-		else
-			setVar --name "${internship_Classification}" --value False
-		endIf
-		//Memasukan data sesuai klasifikasi perusahaan
-		if --left "${internship_Classification}" --operator "Is_True" --negate 
-			if --left "${company_Classification}" --operator "Is_True"
-				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
-				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_One_Table}
-				addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_One_Table}
-				incrementVar --number ${one_Iteration}
-				incrementVar --number ${iteration}
-				logMessage --message "${iteration}" --type "Info"
-			elseIf --left "${company_Classification}" --operator "Is_True" --negate 
-				addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
-				addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_Other_Table}
-				addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_Other_Table}
-				incrementVar --number ${other_Iteration}
-				incrementVar --number ${iteration}
-				logMessage --message "${iteration}" --type "Info"
-			endIf
-		else
-			incrementVar --number ${iteration}
-			logMessage --message "${iteration}" --type "Info"
-		endIf
+	getTableCell --dataTable ${table_Biodata} --column 7 --row ${iteration} tanggalMasuk_Data_Biodata=value
+	convertStringToNumber --text "${tanggalMasuk_Data_Biodata}" benchmark_NewEmployee=value
+	getTableCell --dataTable ${table_Biodata} --column 3 --row ${iteration} company_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 2 --row ${iteration} nama_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 5 --row ${iteration} department_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 30 --row ${iteration} accountNumber_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 28 --row ${iteration} bank_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 6 --row ${iteration} jabatan_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} NIK_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 23 --row ${iteration} BPJSTK_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 20 --row ${iteration} KTP_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 8 --row ${iteration} tanggalLahir_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 12 --row ${iteration} golonganDarah_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 13 --row ${iteration} jenisKelamin_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 14 --row ${iteration} statusPernikahan_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 16 --row ${iteration} nomorHP_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 18 --row ${iteration} email_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 22 --row ${iteration} NPWP_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 24 --row ${iteration} BPJSK_Data=value
+	getTableCell --dataTable ${table_Biodata} --column 1 --row ${iteration} unique_Data=value
+	findTableCell --dataTable ${table_Asignment} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
+	getTableCell --dataTable ${table_Asignment} --column 3 --row ${unique_Row} tanggalMasuk_Data_Assignment=value
+	convertStringToNumber --text "${tanggalMasuk_Data_Assignment}" benchmark_Internship=value
+	getTableCell --dataTable ${table_Asignment} --column 16 --row ${unique_Row} grade_Data=value
+	getTableCell --dataTable ${table_Asignment} --column 24 --row ${unique_Row} position_Data=value
+	getTableCell --dataTable ${table_Asignment} --column 10 --row ${unique_Row} tanggalSelesai_Data=value
+	getTableCell --dataTable ${table_Asignment} --column 5 --row ${unique_Row} statusKerja_Data=value
+	//Klasifikasi Data
+	//	Benchmark Tanggal
+	//		New Employee, BPJSTK, BPJSK
+	if --left "${benchmark_NewEmployee}" --operator "Greater_Than_Equal_To" --right 45127
+		setVar --name "${min_NewEmployee_Date_Calculation}" --value True
 	else
+		setVar --name "${min_NewEmployee_Date_Calculation}" --value False
+	endIf
+	if --left "${benchmark_NewEmployee}" --operator "Less_Than_Equal_To" --right 45159
+		setVar --name "${max_NewEmployee_Date_Calculation}" --value True
+	else
+		setVar --name "${max_NewEmployee_Date_Calculation}" --value False
+	endIf
+	//		Internship
+	if --left "${benchmark_Internship}" --operator "Greater_Than_Equal_To" --right 45139
+		setVar --name "${min_Internship_Date_Calculation}" --value True
+	else
+		setVar --name "${min_Internship_Date_Calculation}" --value False
+	endIf
+	if --left "${benchmark_Internship}" --operator "Less_Than_Equal_To" --right 45169
+		setVar --name "${max_Internship_Date_Calculation}" --value True
+	else
+		setVar --name "${max_Internship_Date_Calculation}" --value False
+	endIf
+	//	Perusahaan
+	if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+		setVar --name "${company_Classification}" --value True
+	else
+		setVar --name "${company_Classification}" --value False
+	endIf
+	//	Status Pekerjaan
+	if --left "${position_Data}" --operator "Contains" --right Internship
+		setVar --name "${internship_Group_Calculation}" --value True
+	elseIf --left "${position_Data}" --operator "Contains" --right Internship --negate 
+		setVar --name "${newEmployee_Group_Calculation}" --value True
+	endIf
+	//Kalkulasi kondisi data
+	evaluate --expression "${max_NewEmployee_Date_Calculation}&${min_NewEmployee_Date_Calculation}&${newEmployee_Group_Calculation}" newEmployee_Classification=value
+	evaluate --expression "${max_Internship_Date_Calculation}&${min_Internship_Date_Calculation}&${internship_Group_Calculation}" internship_Classification=value
+	evaluate --expression "${newEmployee_Classification} == ${internship_Classification}" skip=value
+	logMessage --message "\r\n${iteration}\r\n\r\n${max_NewEmployee_Date_Calculation}\r\n${min_NewEmployee_Date_Calculation}\r\n${newEmployee_Group_Calculation}\r\nnew employee = ${newEmployee_Classification}\r\n\r\n${max_Internship_Date_Calculation}\r\n${min_Internship_Date_Calculation}\r\n${internship_Group_Calculation}\r\ninternship = ${internship_Classification}\r\n\r\nskip=${skip}" --type "Info"
+	//Memasukan data sesuai klasifikasi perusahaan
+	if --left "${newEmployee_Classification}" --operator "Is_True"
+		//New Emplotyee, BPJSTK, BPJSK
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Biodata}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_One_Table}
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_One_Table}
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			logMessage --message "\r\n${iteration}\r\nNew One" --type "Info"
+			incrementVar --number ${one_Iteration}
+			incrementVar --number ${iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate 
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Biodata}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"null\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"null\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_Other_Table}
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_Other_Table}
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			logMessage --message "\r\n${iteration}\r\nNew Other" --type "Info"
+			incrementVar --number ${other_Iteration}
+			incrementVar --number ${iteration}
+		endIf
+	elseIf --left "${internship_Classification}" --operator "Is_True"
+		//Internship
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${internship_One_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_One_Table}
+			logMessage --message "\r\n${iteration}\r\nInternship One" --type "Info"
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			setVar --name "${internship_Group_Calculation}" --value False
+			incrementVar --number ${internship_One_Iteration}
+			incrementVar --number ${iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate 
+			addRow --valuesmapping "{\"No\":\"${internship_Other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_Other_Table}
+			logMessage --message "\r\n${iteration}\r\nInternship Other" --type "Info"
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			incrementVar --number ${internship_Other_Iteration}
+			incrementVar --number ${iteration}
+		endIf
+	elseIf --left "${skip}" --operator "Is_True"
 		incrementVar --number ${iteration}
-		logMessage --message "${iteration}" --type "Info"
 	endIf
 endWhile
 //Memasukan value ke report
@@ -218,6 +287,9 @@ evaluate --expression "${one_Iteration}+5" one_Excel_Iteration=value
 excelSet --value "Penonaktifan BPJS Kesehatan" --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${one_Excel_Iteration}"
 incrementVar --number ${one_Excel_Iteration}
 excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${one_Excel_Iteration}"
+//		Internship
+deleteRows --indexes 1 --dataTable ${Internship_One_Table}
+excelSetTable --dataTable ${Internship_One_Table} --headers  --file ${one_File} --sheet Internship --usingcell  --cell A5
 excelClose --file ${one_File} --save 
 //	Other Report
 //		New Employee
@@ -248,4 +320,7 @@ evaluate --expression "${other_Iteration}+5" other_Excel_Iteration=value
 excelSet --value "Penonaktifan BPJS Kesehatan" --file ${other_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${other_Excel_Iteration}"
 incrementVar --number ${other_Excel_Iteration}
 excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${other_Excel_Iteration}"
+//		Internship
+deleteRows --indexes 1 --dataTable ${Internship_Other_Table}
+excelSetTable --dataTable ${Internship_Other_Table} --headers  --file ${other_File} --sheet Internship --usingcell  --cell A5
 excelClose --file ${other_File} --save *23.0.7.0
