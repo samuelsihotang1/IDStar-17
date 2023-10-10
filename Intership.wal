@@ -1,26 +1,44 @@
-ÃdefVar --name ID --type String --value "hengky@iftgroup.id"
+«+defVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
-defVar --name task_target --type String --value "Asset Report"
+defVar --name target_Assignment --type String --value Assignment
+defVar --name download_Button --type Boolean
+defVar --name assignment_File_Name --type String
 webStart --name web --type "Chrome" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\USER\\AppData\\Local\\IBM Robotic Process Automation\\downloads"
 webNavigate --url "https://app.starconnect.id/login"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form"
 logMessage --message "Berhasil mengakses website" --type "Info"
-webSet --value "${ID}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[2]/div/input" --simulatehuman 
-webSet --value "${pass}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[3]/div/input" --simulatehuman 
-webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[2]/div/div[2]/div/div/div/form/div[5]/button" --simulatehuman 
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/app-navbar/nav"
+webSet --value "${ID}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input" --simulatehuman 
+webSet --value "${pass}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[3]/div/input" --simulatehuman 
+webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[5]/button" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[1]"
 logMessage --message "Berhasil login" --type "Info"
 //Navigasi 
-webWaitElement --selector "XPath" --xpath "//*[@id=\"sidenav-main\"]/perfect-scrollbar/div/div[1]"
-webClick --selector "XPath" --xpath "//*[@id=\"sidenav-collapse-main\"]/ul/li[20]/div[3]/ul/li[2]/div[1]/a"
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/app-sidebar/nav/perfect-scrollbar/div/div[1]/div/div[2]/div/ul/li[20]/div[3]/ul/li[2]/div[1]/a"
-webWaitElement --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]"
-//create asset report
+webNavigate --url "https://app.starconnect.id/tools/process-manager"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]"
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
+//create assigment report
 webClick --selector "XPath" --xpath "//*[@id=\"datatable_length\"]/label/button[2]/span[2]"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
 webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
-webSet --value "${task_target}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input"
-webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[5]"
-webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[5]" --comment "click asset report"
+webSet --value "${target_Assignment}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman 
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]"
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]"
+webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman 
+delay --timeout "00:00:10"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body" --simulatehuman 
+webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  assignment_File_Name=value
+webRefresh
+replaceText --texttoparse "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --useregex  --pattern "/" --regexOptions "0" assignment_File_Name=value
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button=value
+if --left "${download_Button}" --operator "Is_True"
+	logMessage --message "Terdapat download button" --type "Info"
+elseIf --left "${download_Button}" --operator "Is_True" --negate 
+	logMessage --message "Tidak terdapat download button" --type "Info"
+endIf
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman 
+logMessage --message "berhasil\r\n" --type "Info"
 webClose --name web*23.0.8.1
