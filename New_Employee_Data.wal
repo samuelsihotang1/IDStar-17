@@ -1,4 +1,4 @@
-·Å//Directory
+²Ç//Directory
 defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
 defVar --name biodata_Directory --type String --value "D:\\ICStar\\Hackathon\\Biodata.xlsx"
 defVar --name report_Directory --type String --value "D:\\ICStar\\Hackathon\\Report.xlsx"
@@ -99,6 +99,7 @@ defVar --name max_Row_Biodata --type Numeric
 defVar --name max_Row_Report --type Numeric
 //Log
 defVar --name column_Check --type Numeric
+defVar --name bug --type Boolean
 //Membaca File Excel
 //	Assignment
 excelOpen --file "${assignment_Directory}" assignment_File=value
@@ -204,14 +205,18 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 		setVar --name "${company_Classification}" --value False
 	endIf
 	//	Status Pekerjaan
-	if --left "${position_Data}" --operator "Contains" --right Internship
+	if --left "${statusKerja_Data}" --operator "Contains" --right Internship
 		setVar --name "${internship_Group_Calculation}" --value True
-	elseIf --left "${position_Data}" --operator "Contains" --right Internship --negate 
+	elseIf --left "${statusKerja_Data}" --operator "Contains" --right Internship --negate 
 		setVar --name "${newEmployee_Group_Calculation}" --value True
 	endIf
 	//Kalkulasi kondisi data
 	evaluate --expression "${max_NewEmployee_Date_Calculation}&${min_NewEmployee_Date_Calculation}&${newEmployee_Group_Calculation}" newEmployee_Classification=value
 	evaluate --expression "${max_Internship_Date_Calculation}&${min_Internship_Date_Calculation}&${internship_Group_Calculation}" internship_Classification=value
+	evaluate --expression "${newEmployee_Classification} && ${internship_Classification}" bug=value
+	if --left "${bug}" --operator "Is_True"
+		setVar --name "${newEmployee_Classification}" --value False
+	endIf
 	evaluate --expression "${newEmployee_Classification} == ${internship_Classification}" skip=value
 	logMessage --message "\r\n${iteration}\r\n\r\n${max_NewEmployee_Date_Calculation}\r\n${min_NewEmployee_Date_Calculation}\r\n${newEmployee_Group_Calculation}\r\nnew employee = ${newEmployee_Classification}\r\n\r\n${max_Internship_Date_Calculation}\r\n${min_Internship_Date_Calculation}\r\n${internship_Group_Calculation}\r\ninternship = ${internship_Classification}\r\n\r\nskip=${skip}" --type "Info"
 	//Memasukan data sesuai klasifikasi perusahaan
