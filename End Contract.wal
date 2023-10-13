@@ -1,4 +1,4 @@
-­defVar --name Nama --type String --value tes
+±defVar --name Nama --type String --value tes
 defVar --name Tanggal --type String
 defVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
@@ -25,7 +25,7 @@ endIf
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/home-profile/div/div/div/div[1]/div/div[2]/h1"
 logMessage --message "Berhasil login" --type "Info"
 webNavigate --url "https://app.starconnect.id/dashboards/hr"
-webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/app-dashboard/div/div/div[2]/div[2]/div[2]/div/div/div[2]/ul/li[1]/div/div[2]/h4/a" --simulatehuman  --comment tunggu
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/app-dashboard/div/div/div[2]/div[2]/div[2]/div/div/div[2]/ul/li[1]/div/div[2]/h4/a" --timeout "00:00:30" --comment tunggu
 //	Ambil Nilai Nama
 webGet --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/app-dashboard/div/div/div[2]/div[2]/div[2]/div/div/div[2]/ul/li[1]/div/div[2]/h4/a" --simulatehuman  Nama=value
 //	Ambil Nilai Tanggal
