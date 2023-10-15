@@ -1,6 +1,6 @@
-≤«//Directory
-defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Assignment.xlsx"
-defVar --name biodata_Directory --type String --value "D:\\ICStar\\Hackathon\\Biodata.xlsx"
+™ç//Directory
+defVar --name assignment_Directory --type String --value "D:\\ICStar\\Hackathon\\Core\\Assignment.xlsx"
+defVar --name biodata_Directory --type String --value "D:\\ICStar\\Hackathon\\Core\\Biodata.xlsx"
 defVar --name report_Directory --type String --value "D:\\ICStar\\Hackathon\\Report.xlsx"
 defVar --name one_Directory --type String --value "D:\\ICStar\\Hackathon\\Report\\One_Report.xlsx"
 defVar --name other_Directory --type String --value "D:\\ICStar\\Hackathon\\Report\\Other_Report.xlsx"
@@ -100,6 +100,27 @@ defVar --name max_Row_Report --type Numeric
 //Log
 defVar --name column_Check --type Numeric
 defVar --name bug --type Boolean
+defVar --name BPJSK_Eksternal_File --type Excel
+defVar --name row --type Numeric --value 5
+defVar --name value_Check --type String
+defVar --name Notes_Data_Eksternal --type String
+defVar --name nama_Data_Eksternal --type String
+defVar --name company_Data_Eksternal --type String
+defVar --name noBPJSK_Data_Eksternal --type String
+defVar --name KTP_Data_Eksternal --type String
+defVar --name NIK_Data_Eksternal --type String
+defVar --name jabatan_Data_Eksternal --type String
+defVar --name status_Data_Eksternal --type String
+defVar --name aktifBPJSK_One_Iteration --type Numeric
+defVar --name aktifBPJSK_Other_Iteration --type Numeric
+defVar --name email_Data_Eksternal --type String
+defVar --name noHP_Data_Eksternal --type String
+defVar --name alasan_Data_Eksternal --type String
+defVar --name tmt_Data_Eksternal --type String
+defVar --name noSurat_Data_Eksternal --type String
+defVar --name nonAktifBPJSK_One_Iteration --type Numeric --value 1
+defVar --name nonAktifBPJSK_Other_Iteration --type Numeric --value 1
+defVar --name BPJSK_Eksternal_Directory --type String --value "D:\\ICStar\\Hackathon\\Core\\BPJSK.xlsx"
 //Membaca File Excel
 //	Assignment
 excelOpen --file "${assignment_Directory}" assignment_File=value
@@ -173,23 +194,23 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 	//Klasifikasi Data
 	//	Benchmark Tanggal
 	//		New Employee, BPJSTK, BPJSK
-	if --left "${benchmark_NewEmployee}" --operator "Greater_Than_Equal_To" --right 45127
+	if --left "${benchmark_NewEmployee}" --operator "Greater_Than_Equal_To" --right 45158
 		setVar --name "${min_NewEmployee_Date_Calculation}" --value True
 	else
 		setVar --name "${min_NewEmployee_Date_Calculation}" --value False
 	endIf
-	if --left "${benchmark_NewEmployee}" --operator "Less_Than_Equal_To" --right 45159
+	if --left "${benchmark_NewEmployee}" --operator "Less_Than_Equal_To" --right 45190
 		setVar --name "${max_NewEmployee_Date_Calculation}" --value True
 	else
 		setVar --name "${max_NewEmployee_Date_Calculation}" --value False
 	endIf
 	//		Internship
-	if --left "${benchmark_Internship}" --operator "Greater_Than_Equal_To" --right 45139
+	if --left "${benchmark_Internship}" --operator "Greater_Than_Equal_To" --right 45170
 		setVar --name "${min_Internship_Date_Calculation}" --value True
 	else
 		setVar --name "${min_Internship_Date_Calculation}" --value False
 	endIf
-	if --left "${benchmark_Internship}" --operator "Less_Than_Equal_To" --right 45169
+	if --left "${benchmark_Internship}" --operator "Less_Than_Equal_To" --right 45199
 		setVar --name "${max_Internship_Date_Calculation}" --value True
 	else
 		setVar --name "${max_Internship_Date_Calculation}" --value False
@@ -262,6 +283,101 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 		incrementVar --number ${iteration}
 	endIf
 endWhile
+//Pengambilan data eksternal BPJSK
+setVars --assignments "{\"${aktifBPJSK_One_Iteration}\":\"${one_Iteration}\",\"${aktifBPJSK_Other_Iteration}\":\"${other_Iteration}\"}"
+excelOpen --file "${BPJSK_Eksternal_Directory}" BPJSK_Eksternal_File=value
+excelRenameWorksheet --file ${BPJSK_Eksternal_File} --index 2 --newname 2
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+logMessage --message "\r\none\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+while --left "${value_Check}" --operator "Is_Empty" --negate 
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 Notes_Data_Eksternal=value
+	logMessage --message "\r\ntwo\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+	if --left "${Notes_Data_Eksternal}" --operator "Contains" --right DONE
+		logMessage --message "\r\nthree\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	elseIf --left "${Notes_Data_Eksternal}" --operator "Equal_To" --right "Sudah terdaftar"
+		logMessage --message "\r\nfour\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	else
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 2 nama_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 3 company_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 4 noBPJSK_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 5 KTP_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 6 NIK_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 7 jabatan_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 8 status_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 Notes_Data_Eksternal=value
+		if --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+			setVar --name "${company_Classification}" --value True
+		elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+			setVar --name "${company_Classification}" --value True
+		elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+			setVar --name "${company_Classification}" --value True
+		else
+			setVar --name "${company_Classification}" --value False
+		endIf
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_One_Table}
+			logMessage --message "\r\nfive\r\n${row}\r\n" --type "Info"
+			incrementVar --number ${row}
+			incrementVar --number ${aktifBPJSK_One_Iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate 
+			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_Other_Table}
+			logMessage --message "\r\nsix\r\n${row}\r\n" --type "Info"
+			incrementVar --number ${row}
+			incrementVar --number ${aktifBPJSK_Other_Iteration}
+		endIf
+	endIf
+endWhile
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+while --left "${value_Check}" --operator "Is_Empty"
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	logMessage --message "\r\nseven\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+	setVar --name "${row}" --value "${row}"
+	incrementVar --number ${row}
+endWhile
+//Non aktif BPJSK Eksternal
+evaluate --expression "${row}+2" row=value
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+while --left "${value_Check}" --operator "Is_Empty" --negate 
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 2 nama_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 3 company_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 4 noBPJSK_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 5 email_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 6 NIK_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 7 noHP_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 8 alasan_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 tmt_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 10 noSurat_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 11 Notes_Data_Eksternal=value
+	if --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+		setVar --name "${company_Classification}" --value True
+	else
+		setVar --name "${company_Classification}" --value False
+	endIf
+	if --left "${company_Classification}" --operator "Is_True"
+		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_One_Table}
+		logMessage --message "\r\nnine\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+		incrementVar --number ${nonAktifBPJSK_One_Iteration}
+	elseIf --left "${company_Classification}" --operator "Is_True" --negate 
+		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_Other_Table}
+		logMessage --message "\r\nten\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+		incrementVar --number ${nonAktifBPJSK_Other_Iteration}
+	else
+		logMessage --message "\r\neleven\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	endIf
+endWhile
+logMessage --message "\r\ntwelve\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+excelClose --file ${BPJSK_Eksternal_File}
 //Memasukan value ke report
 //	One Report
 //		New Employee
@@ -269,7 +385,7 @@ excelOpen --file "${one_Directory}" one_File=value
 deleteRows --indexes 1 --dataTable ${newEmployee_One_Table}
 excelSetTable --dataTable ${newEmployee_One_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell A5
 excelGetTable --file ${one_File} --getfirstsheet  --entiretable  newEmployee_One_Row=rows
-evaluate --expression "${one_Iteration}+7" one_Excel_Iteration=value
+evaluate --expression "${newEmployee_One_Row}+2" one_Excel_Iteration=value
 //		Pemotongan Gaji Karyawan
 excelSet --value "Pemotongan Gaji Karyawan" --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Excel_Iteration}"
 incrementVar --number ${one_Excel_Iteration}
@@ -278,16 +394,16 @@ excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${one_File} --ge
 deleteRows --indexes 1 --dataTable ${pendaftaranBPJSTK_One_Table}
 excelSetTable --dataTable ${pendaftaranBPJSTK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell A4
 excelGetTable --file ${one_File} --sheet BPJSTK --entiretable  BPJSTKAktif_One_Row=rows
-evaluate --expression "${one_Iteration}+5" one_Excel_Iteration=value
+evaluate --expression "${BPJSTKAktif_One_Row}+2" one_Excel_Iteration=value
 //		Non aktif BPJSTK
 excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Excel_Iteration}"
 incrementVar --number ${one_Excel_Iteration}
 excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Excel_Iteration}"
 //		BPJSK
 deleteRows --indexes 1 --dataTable ${aktifBPJSK_One_Table}
-excelSetTable --dataTable ${pendaftaranBPJSTK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
+excelSetTable --dataTable ${aktifBPJSK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
 excelGetTable --file ${one_File} --sheet "BPJS Kesehatan" --entiretable  BPJSKAktif_One_Row=rows
-evaluate --expression "${one_Iteration}+5" one_Excel_Iteration=value
+evaluate --expression "${BPJSKAktif_One_Row}+2" one_Excel_Iteration=value
 //		Non aktif BPJSK
 excelSet --value "Penonaktifan BPJS Kesehatan" --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${one_Excel_Iteration}"
 incrementVar --number ${one_Excel_Iteration}
@@ -302,7 +418,7 @@ excelOpen --file "${other_Directory}" other_File=value
 deleteRows --indexes 1 --dataTable ${newEmployee_Other_Table}
 excelSetTable --dataTable ${newEmployee_Other_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell A5
 excelGetTable --file ${other_File} --getfirstsheet  --entiretable  newEmployee_Other_Row=rows
-evaluate --expression "${other_Iteration}+7" other_Excel_Iteration=value
+evaluate --expression "${newEmployee_Other_Row}+2" other_Excel_Iteration=value
 //		Pemotongan Gaji Karyawan
 excelSet --value "Pemotongan Gaji Karyawan" --file ${other_File} --getfirstsheet  --usingcell  --cell "A${other_Excel_Iteration}"
 incrementVar --number ${other_Excel_Iteration}
@@ -311,16 +427,16 @@ excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${other_File} --
 deleteRows --indexes 1 --dataTable ${pendaftaranBPJSTK_Other_Table}
 excelSetTable --dataTable ${pendaftaranBPJSTK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell A4
 excelGetTable --file ${other_File} --sheet BPJSTK --entiretable  BPJSTKAktif_Other_Row=rows
-evaluate --expression "${other_Iteration}+5" other_Excel_Iteration=value
+evaluate --expression "${BPJSTKAktif_Other_Row}+2" other_Excel_Iteration=value
 //		Non aktif BPJSTK
 excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Excel_Iteration}"
 incrementVar --number ${other_Excel_Iteration}
 excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Excel_Iteration}"
 //		BPJSK
 deleteRows --indexes 1 --dataTable ${aktifBPJSK_Other_Table}
-excelSetTable --dataTable ${pendaftaranBPJSTK_Other_Table} --headers  --file ${Other_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
+excelSetTable --dataTable ${aktifBPJSK_Other_Table} --headers  --file ${Other_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
 excelGetTable --file ${Other_File} --sheet "BPJS Kesehatan" --entiretable  BPJSKAktif_Other_Row=rows
-evaluate --expression "${other_Iteration}+5" other_Excel_Iteration=value
+evaluate --expression "${BPJSKAktif_Other_Row}+2" other_Excel_Iteration=value
 //		Non aktif BPJSK
 excelSet --value "Penonaktifan BPJS Kesehatan" --file ${other_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${other_Excel_Iteration}"
 incrementVar --number ${other_Excel_Iteration}
