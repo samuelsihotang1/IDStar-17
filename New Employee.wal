@@ -1,4 +1,4 @@
-½EdefVar --name ID --type String --value "hengky@iftgroup.id"
+¿EdefVar --name ID --type String --value "hengky@iftgroup.id"
 defVar --name Pass --type String --value "Hengky#17042002"
 defVar --name login_Failed --type String
 defVar --name target_Assignment --type String --value Assignment
@@ -11,7 +11,7 @@ defVar --name directory_Assignment --type String
 defVar --name target_Biodata --type String --value Biodata
 defVar --name biodata_File_Name --type String
 //Log-in
-webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "C:\\Users\\User\\Downloads"
+webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "D:\\Monthly_Report\\Download"
 webNavigate --url "https://app.starconnect.id/login"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input"
 logMessage --message "Berhasil landing pada web" --type "Info"
@@ -78,4 +78,4 @@ elseIf --left "${download_Button}" --operator "Is_True" --negate
 endIf
 webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]"
 delay --timeout "00:00:30"
-webClose --name Web*23.0.7.0
+webClose --name Web*	23.0.10.0
