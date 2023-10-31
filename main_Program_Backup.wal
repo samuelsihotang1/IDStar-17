@@ -1,4 +1,4 @@
-Ǉ//Directory
+//Directory
 defVar --name config_Directory --type String --value "D:\\ICStar\\Hackathon\\File_Config.xlsx"
 defVar --name download_Path --type String
 defVar --name report_Path --type String
@@ -158,7 +158,7 @@ defVar --name download_Button_Biodata --type Boolean
 //Error Handling
 defVar --name login_Failed --type String
 //Membaca file config
-logMessage --message "Proses" --type "Info"
+logMessage --message "Proses membaca File Config" --type "Info"
 excelOpen --file "${config_Directory}" config_File=value
 excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J6 ID_Data=value
 excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J7 Pass_Data=value
@@ -170,10 +170,12 @@ excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S4 from_Date
 excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S6 until_Date_Internship=value
 excelClose --file ${config_File}
 // Download File
+logMessage --message "Proses membuka browser" --type "Info"
 webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "${download_Path}"
 webNavigate --url "https://app.starconnect.id/login"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input"
 logMessage --message "Berhasil landing pada web" --type "Info"
+logMessage --message "Proses Login" --type "Info"
 webSet --value "${ID_Data}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input" --simulatehuman
 webSet --value "${Pass_Data}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[3]/div/input" --simulatehuman
 webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[5]/button" --simulatehuman
@@ -185,10 +187,12 @@ if --left "${login_Failed}" --operator "Equal_To" --right "*Invalid user credent
 	stopExecution
 endIf
 //Navigasi
+logMessage --message "Proses Navigasi" --type "Info"
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/home-profile/div/div[1]/div/div"
 logMessage --message "Berhasil login" --type "Info"
 webNavigate --url "https://app.starconnect.id/tools/process-manager"
 //Proses Querry Download
+logMessage --message "Proses Querrying" --type "Info"
 //	Biodata
 webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
 webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
@@ -229,6 +233,7 @@ webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body
 replaceText --texttoparse "${address_File_Name}" --textpattern "/" --replacement _ address_File_Name=value
 delay --timeout "00:00:05"
 //Proses Download
+logMessage --message "Proses Download" --type "Info"
 evaluate --expression "${download_Assignment} & ${download_Address} & ${download_Biodata}" download_Availabillity=value
 while --left "${download_Availabillity}" --operator "Is_True" --negate
 	if --left "${download_Iteration}" --operator "Less_Than" --right 10
@@ -284,6 +289,7 @@ evaluate --expression "${download_Path}BPJSK.xlsx" BPJSK_Eksternal_Directory=val
 evaluate --expression "${report_Path}One_Report.xlsx" one_Directory=value
 evaluate --expression "${report_Path}Other_Report.xlsx" other_Directory=value
 //Membaca File Excel
+logMessage --message "Proses membaca file" --type "Info"
 //	Assignment
 excelOpen --file "${assignment_Directory}" assignment_File=value
 excelGetTable --file ${assignment_File} --getfirstsheet  --entiretable  max_Row_Assignment=rows
@@ -326,6 +332,7 @@ excelOpen --file "${adress_Directory}" adress_File=value
 excelGetTable --file ${adress_File} --getfirstsheet  --entiretable  --hasheaders  adress_Table=value
 excelClose --file ${adress_File}
 //Proses Input Data kedalam temp table
+logMessage --message "Proses pengambilan data" --type "Info"
 //	New Employee
 while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
 	getTableCell --dataTable ${biodata_Table} --column 7 --row ${iteration} tanggalMasuk_Data_Biodata=value
@@ -407,7 +414,6 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 	evaluate --expression "${max_NewEmployee_Date_Calculation}&${min_NewEmployee_Date_Calculation}&${newEmployee_Group_Calculation}" newEmployee_Classification=value
 	evaluate --expression "${max_Internship_Date_Calculation}&${min_Internship_Date_Calculation}&${internship_Group_Calculation}" internship_Classification=value
 	evaluate --expression "${newEmployee_Classification} == ${internship_Classification}" skip=value
-	//	logMessage --message "\r\n${iteration}\r\n\r\n${max_NewEmployee_Date_Calculation}\r\n${min_NewEmployee_Date_Calculation}\r\n${newEmployee_Group_Calculation}\r\nnew employee = ${newEmployee_Classification}\r\n\r\n${max_Internship_Date_Calculation}\r\n${min_Internship_Date_Calculation}\r\n${internship_Group_Calculation}\r\ninternship = ${internship_Classification}\r\n\r\nskip=${skip}" --type "Info"
 	//Memasukan data sesuai klasifikasi perusahaan
 	if --left "${newEmployee_Classification}" --operator "Is_True"
 		//New Emplotyee, BPJSTK, BPJSK
@@ -417,7 +423,6 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_One_Table}
 			setVar --name "${internship_Group_Calculation}" --value False
 			setVar --name "${newEmployee_Group_Calculation}" --value False
-			//			logMessage --message "\r\n${iteration}\r\nNew One" --type "Info"
 			incrementVar --number ${one_Iteration}
 			incrementVar --number ${iteration}
 		elseIf --left "${company_Classification}" --operator "Is_True" --negate
@@ -426,7 +431,6 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_Other_Table}
 			setVar --name "${internship_Group_Calculation}" --value False
 			setVar --name "${newEmployee_Group_Calculation}" --value False
-			//			logMessage --message "\r\n${iteration}\r\nNew Other" --type "Info"
 			incrementVar --number ${other_Iteration}
 			incrementVar --number ${iteration}
 		endIf
@@ -434,14 +438,12 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 		//Internship
 		if --left "${company_Classification}" --operator "Is_True"
 			addRow --valuesmapping "{\"No\":\"${internship_One_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_One_Table}
-			//			logMessage --message "\r\n${iteration}\r\nInternship One" --type "Info"
 			setVar --name "${newEmployee_Group_Calculation}" --value False
 			setVar --name "${internship_Group_Calculation}" --value False
 			incrementVar --number ${internship_One_Iteration}
 			incrementVar --number ${iteration}
 		elseIf --left "${company_Classification}" --operator "Is_True" --negate
 			addRow --valuesmapping "{\"No\":\"${internship_Other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_Other_Table}
-			//			logMessage --message "\r\n${iteration}\r\nInternship Other" --type "Info"
 			setVar --name "${internship_Group_Calculation}" --value False
 			setVar --name "${newEmployee_Group_Calculation}" --value False
 			incrementVar --number ${internship_Other_Iteration}
@@ -452,20 +454,17 @@ while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_B
 	endIf
 endWhile
 //Pengambilan data eksternal BPJSK
+logMessage --message "Proses pengambulan data BPJSK Eksternal Aktif" --type "Info"
 setVars --assignments "{\"${aktifBPJSK_One_Iteration}\":\"${one_Iteration}\",\"${aktifBPJSK_Other_Iteration}\":\"${other_Iteration}\"}"
 excelOpen --file "${BPJSK_Eksternal_Directory}" BPJSK_Eksternal_File=value
 excelRenameWorksheet --file ${BPJSK_Eksternal_File} --index 2 --newname 2
 excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
-logMessage --message "\r\none\r\n${row}\r\n${value_Check}\r\n" --type "Info"
 while --left "${value_Check}" --operator "Is_Empty" --negate
 	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
 	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 Notes_Data_Eksternal=value
-	logMessage --message "\r\ntwo\r\n${row}\r\n${value_Check}\r\n" --type "Info"
 	if --left "${Notes_Data_Eksternal}" --operator "Contains" --right DONE
-		logMessage --message "\r\nthree\r\n${row}\r\n" --type "Info"
 		incrementVar --number ${row}
 	elseIf --left "${Notes_Data_Eksternal}" --operator "Equal_To" --right "Sudah terdaftar"
-		logMessage --message "\r\nfour\r\n${row}\r\n" --type "Info"
 		incrementVar --number ${row}
 	else
 		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 2 nama_Data_Eksternal=value
@@ -487,12 +486,10 @@ while --left "${value_Check}" --operator "Is_Empty" --negate
 		endIf
 		if --left "${company_Classification}" --operator "Is_True"
 			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_One_Table}
-			logMessage --message "\r\nfive\r\n${row}\r\n" --type "Info"
 			incrementVar --number ${row}
 			incrementVar --number ${aktifBPJSK_One_Iteration}
 		elseIf --left "${company_Classification}" --operator "Is_True" --negate
 			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_Other_Table}
-			logMessage --message "\r\nsix\r\n${row}\r\n" --type "Info"
 			incrementVar --number ${row}
 			incrementVar --number ${aktifBPJSK_Other_Iteration}
 		endIf
@@ -501,11 +498,11 @@ endWhile
 excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
 while --left "${value_Check}" --operator "Is_Empty"
 	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
-	logMessage --message "\r\nseven\r\n${row}\r\n${value_Check}\r\n" --type "Info"
 	setVar --name "${row}" --value "${row}"
 	incrementVar --number ${row}
 endWhile
 //Non aktif BPJSK Eksternal
+logMessage --message "Proses pengambilan data BPJSK Eksternal Non Aktif" --type "Info"
 evaluate --expression "${row}+2" row=value
 excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
 while --left "${value_Check}" --operator "Is_Empty" --negate
@@ -531,22 +528,19 @@ while --left "${value_Check}" --operator "Is_Empty" --negate
 	endIf
 	if --left "${company_Classification}" --operator "Is_True"
 		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_One_Table}
-		//		logMessage --message "\r\nnine\r\n${row}\r\n" --type "Info"
 		incrementVar --number ${row}
 		incrementVar --number ${nonAktifBPJSK_One_Iteration}
 	elseIf --left "${company_Classification}" --operator "Is_True" --negate
 		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_Other_Table}
-		//		logMessage --message "\r\nten\r\n${row}\r\n" --type "Info"
 		incrementVar --number ${row}
 		incrementVar --number ${nonAktifBPJSK_Other_Iteration}
 	else
-		//		logMessage --message "\r\neleven\r\n${row}\r\n" --type "Info"
 		incrementVar --number ${row}
 	endIf
 endWhile
-//logMessage --message "\r\ntwelve\r\n${row}\r\n${value_Check}\r\n" --type "Info"
 excelClose --file ${BPJSK_Eksternal_File}
 //Memasukan value ke report
+logMessage --message "Proses Pembuatan Laporan One" --type "Info"
 //	One Report
 //		New Employee
 excelOpen --file "${one_Directory}" one_File=value
@@ -581,6 +575,7 @@ deleteRows --indexes 1 --dataTable ${Internship_One_Table}
 excelSetTable --dataTable ${Internship_One_Table} --headers  --file ${one_File} --sheet Internship --usingcell  --cell A5
 excelClose --file ${one_File} --save
 //	Other Report
+logMessage --message "Proses Pembuatan Laporan Other" --type "Info"
 //		New Employee
 excelOpen --file "${other_Directory}" other_File=value
 deleteRows --indexes 1 --dataTable ${newEmployee_Other_Table}
