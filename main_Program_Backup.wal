@@ -1,4 +1,4 @@
-¬Å//Directory
+ËÅ//Directory
 defVar --name config_Directory --type String --value "D:\\ICStar\\Hackathon\\File_Config.xlsx"
 defVar --name download_Path --type String
 defVar --name report_Path --type String
@@ -9,7 +9,7 @@ defVar --name assignment_Directory --type String
 defVar --name biodata_Directory --type String
 defVar --name adress_Directory --type String
 defVar --name BPJSK_Eksternal_Directory --type String
-defVar --name report_Directory --type String --value "D:\\ICStar\\Hackathon\\Report.xlsx"
+defVar --name report_Directory --type String
 defVar --name one_Directory --type String
 defVar --name other_Directory --type String
 //Calling Directory
@@ -282,12 +282,13 @@ webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/di
 delay --timeout "00:00:30"
 logMessage --message "\nAddress File = ${address_Check}\r\nAssignment File = ${assignment_Check}\r\nBiodata File = ${biodata_Check}" --type "Info"
 webClose --name Web
-evaluate --expression "${download_Path}${assignment_File_Name}" assignment_Directory=value
-evaluate --expression "${download_Path}${biodata_File_Name}" biodata_Directory=value
-evaluate --expression "${download_Path}${address_File_Name}" adress_Directory=value
-evaluate --expression "${download_Path}BPJSK.xlsx" BPJSK_Eksternal_Directory=value
-evaluate --expression "${report_Path}One_Report.xlsx" one_Directory=value
-evaluate --expression "${report_Path}Other_Report.xlsx" other_Directory=value
+evaluate --expression "${download_Path}/${assignment_File_Name}" assignment_Directory=value
+evaluate --expression "${download_Path}/${biodata_File_Name}" biodata_Directory=value
+evaluate --expression "${download_Path}/${address_File_Name}" adress_Directory=value
+evaluate --expression "${download_Path}/BPJSK.xlsx" BPJSK_Eksternal_Directory=value
+evaluate --expression "${download_Path}/Report.xlsx" report_Directory=value
+evaluate --expression "${report_Path}/One_Report.xlsx" one_Directory=value
+evaluate --expression "${report_Path}/Other_Report.xlsx" other_Directory=value
 //Membaca File Excel
 logMessage --message "Proses membaca file" --type "Info"
 //	Assignment
