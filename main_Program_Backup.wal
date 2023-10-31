@@ -1,0 +1,615 @@
+Ǉ//Directory
+defVar --name config_Directory --type String --value "D:\\ICStar\\Hackathon\\File_Config.xlsx"
+defVar --name download_Path --type String
+defVar --name report_Path --type String
+defVar --name assignment_File_Name --type String
+defVar --name address_File_Name --type String
+defVar --name biodata_File_Name --type String
+defVar --name assignment_Directory --type String
+defVar --name biodata_Directory --type String
+defVar --name adress_Directory --type String
+defVar --name BPJSK_Eksternal_Directory --type String
+defVar --name report_Directory --type String --value "D:\\ICStar\\Hackathon\\Report.xlsx"
+defVar --name one_Directory --type String
+defVar --name other_Directory --type String
+//Calling Directory
+defVar --name config_File --type Excel
+defVar --name assignment_File --type Excel
+defVar --name biodata_File --type Excel
+defVar --name report_File --type Excel
+defVar --name one_File --type Excel
+defVar --name other_File --type Excel
+defVar --name BPJSK_Eksternal_File --type Excel
+defVar --name adress_File --type Excel
+//Tabel
+defVar --name biodata_Table --type DataTable
+defVar --name assignment_Table --type DataTable
+defVar --name adress_Table --type DataTable
+defVar --name newEmployee_One_Table --type DataTable
+defVar --name newEmployee_Other_Table --type DataTable
+defVar --name potongGaji_Table --type DataTable
+defVar --name pendaftaranBPJSTK_One_Table --type DataTable
+defVar --name pendaftaranBPJSTK_Other_Table --type DataTable
+defVar --name nonaktifBPJSTK_One_Table --type DataTable
+defVar --name nonaktifBPJSTK_Other_Table --type DataTable
+defVar --name aktifBPJSK_One_Table --type DataTable
+defVar --name aktifBPJSK_Other_Table --type DataTable
+defVar --name nonAktifBPJSK_One_Table --type DataTable
+defVar --name nonAktifBPJSK_Other_Table --type DataTable
+defVar --name Internship_One_Table --type DataTable
+defVar --name Internship_Other_Table --type DataTable
+//Data
+defVar --name ID_Data --type String
+defVar --name Pass_Data --type String
+defVar --name tanggalMasuk_Data_Biodata --type String
+defVar --name company_Data --type String
+defVar --name nama_Data --type String
+defVar --name department_Data --type String
+defVar --name accountNumber_Data --type String
+defVar --name bank_Data --type String
+defVar --name jabatan_Data --type String
+defVar --name unique_Data --type String
+defVar --name grade_Data --type String
+defVar --name NIK_Data --type String
+defVar --name KTP_Data --type String
+defVar --name golonganDarah_Data --type String
+defVar --name tanggalLahir_Data --type String
+defVar --name jenisKelamin_Data --type String
+defVar --name statusPernikahan_Data --type String
+defVar --name nomorHP_Data --type String
+defVar --name email_Data --type String
+defVar --name NPWP_Data --type String
+defVar --name BPJSTK_Data --type String
+defVar --name BPJSK_Data --type String
+defVar --name tanggalSelesai_Data --type String
+defVar --name statusKerja_Data --type String
+defVar --name position_Data --type String
+defVar --name tanggalMasuk_Data_Assignment --type String
+defVar --name Notes_Data_Eksternal --type String
+defVar --name nama_Data_Eksternal --type String
+defVar --name company_Data_Eksternal --type String
+defVar --name noBPJSK_Data_Eksternal --type String
+defVar --name KTP_Data_Eksternal --type String
+defVar --name NIK_Data_Eksternal --type String
+defVar --name jabatan_Data_Eksternal --type String
+defVar --name status_Data_Eksternal --type String
+defVar --name email_Data_Eksternal --type String
+defVar --name noHP_Data_Eksternal --type String
+defVar --name alasan_Data_Eksternal --type String
+defVar --name tmt_Data_Eksternal --type String
+defVar --name noSurat_Data_Eksternal --type String
+defVar --name alamat_Data --type String
+//Klasifikasi
+defVar --name from_Date_NewEmployee --type String
+defVar --name until_Date_NewEmployee --type String
+defVar --name from_Date_Internship --type String
+defVar --name until_Date_Internship --type String
+defVar --name date_Time --type DateTime
+defVar --name text_Date_Time --type String
+defVar --name company_Classification --type Boolean --value False
+defVar --name internship_Classification --type Boolean --value False
+defVar --name delete_Tanggal_Batas_Atas --type Numeric --value 45158
+defVar --name delete_Tanggl_Batas_Tengah --type Numeric --value 45190
+defVar --name delete_Batas_Bawah --type Numeric --value 45199
+defVar --name benchmark_NewEmployee --type Numeric
+defVar --name unique_Row --type Numeric
+defVar --name benchmark_Internship --type Numeric
+defVar --name newEmployee_Classification --type Boolean --value False
+defVar --name max_Internship_Date_Calculation --type Boolean --value False
+defVar --name newEmployee_Group --type Boolean --value False
+defVar --name internship_Group --type Boolean --value False
+defVar --name min_NewEmployee_Date_Calculation --type Boolean --value False
+defVar --name min_Internship_Date_Calculation --type Boolean --value False
+defVar --name internship__Date_Classification --type Boolean --value False
+defVar --name newEmployee_Date_Classification --type Boolean --value False
+defVar --name internship_Group_Calculation --type Boolean --value False
+defVar --name newEmployee_Group_Calculation --type Boolean --value False
+defVar --name newEmployee_Classification_Calculation --type Boolean --value False
+defVar --name internship_Classification_Calculation --type Boolean --value False
+defVar --name max_NewEmployee_Date_Calculation --type Boolean --value False
+defVar --name skip --type Boolean --value False
+//Iterasi
+defVar --name download_Iteration --type Numeric --value 1
+defVar --name iteration --type Numeric --value 1
+defVar --name one_Iteration --type Numeric --value 1
+defVar --name other_Iteration --type Numeric --value 1
+defVar --name input_One_newEmployee_Iteration --type Numeric --value 1
+defVar --name input_Other_newEmployee_Iteration --type Numeric --value 1
+defVar --name one_Excel_Iteration --type Numeric
+defVar --name other_Excel_Iteration --type Numeric
+defVar --name internship_One_Iteration --type Numeric --value 1
+defVar --name internship_Other_Iteration --type Numeric --value 1
+defVar --name row --type Numeric --value 5
+defVar --name aktifBPJSK_One_Iteration --type Numeric
+defVar --name aktifBPJSK_Other_Iteration --type Numeric
+defVar --name nonAktifBPJSK_One_Iteration --type Numeric --value 1
+defVar --name nonAktifBPJSK_Other_Iteration --type Numeric --value 1
+//Check
+//	Row
+defVar --name row_Check --type Numeric
+defVar --name newEmployee_One_Row --type Numeric
+defVar --name newEmployee_Other_Row --type Numeric
+defVar --name BPJSTKAktif_One_Row --type Numeric
+defVar --name BPJSKAktif_One_Row --type Numeric
+defVar --name BPJSTKAktif_Other_Row --type Numeric
+defVar --name BPJSKAktif_Other_Row --type Numeric
+//	Max
+defVar --name max_Row_Assignment --type Numeric
+defVar --name max_Row_Biodata --type Numeric
+defVar --name max_Row_Report --type Numeric
+//	Value
+defVar --name column_Check --type Numeric
+defVar --name bug --type Boolean
+defVar --name value_Check --type String
+defVar --name alamat_check --type Boolean
+defVar --name assignment_Check --type Boolean
+defVar --name address_Check --type Boolean
+defVar --name biodata_Check --type Boolean
+defVar --name target_Assignment --type String --value Assignment
+defVar --name target_Biodata --type String --value Biodata
+defVar --name target_Address --type String --value Address
+defVar --name download_Assignment --type Boolean --value False
+defVar --name download_Biodata --type Boolean --value False
+defVar --name download_Address --type Boolean --value False
+defVar --name download_Availabillity --type Boolean
+defVar --name download_Button_Address --type Boolean
+defVar --name download_Button_Assignment --type Boolean
+defVar --name download_Button_Biodata --type Boolean
+//Error Handling
+defVar --name login_Failed --type String
+//Membaca file config
+logMessage --message "Proses" --type "Info"
+excelOpen --file "${config_Directory}" config_File=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J6 ID_Data=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J7 Pass_Data=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J10 download_Path=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell J11 report_Path=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S3 from_Date_NewEmployee=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S5 until_Date_NewEmployee=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S4 from_Date_Internship=value
+excelGet --file ${config_File} --getfirstsheet  --usingcell  --cell S6 until_Date_Internship=value
+excelClose --file ${config_File}
+// Download File
+webStart --name Web --type "Edge" --userprofilepreferences "AutomationOptimized" --downloadpath "${download_Path}"
+webNavigate --url "https://app.starconnect.id/login"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input"
+logMessage --message "Berhasil landing pada web" --type "Info"
+webSet --value "${ID_Data}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[2]/div/input" --simulatehuman
+webSet --value "${Pass_Data}" --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[3]/div/input" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[5]/button" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[1]"
+webGet --selector "XPath" --xpath "/html/body/app-root/app-auth-layout/app-login/div/div[6]/div[2]/div[3]/form/div[1]" login_Failed=value
+if --left "${login_Failed}" --operator "Equal_To" --right "*Invalid user credentials" --comment "Memberikan error message ketika id atau pass yang diberikan salah"
+	logMessage --message "Gagal login dikarenakan ID atau Password salah" --type "Info"
+	webClose --name Web --leavebrowseropen
+	stopExecution
+endIf
+//Navigasi
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/home-profile/div/div[1]/div/div"
+logMessage --message "Berhasil login" --type "Info"
+webNavigate --url "https://app.starconnect.id/tools/process-manager"
+//Proses Querry Download
+//	Biodata
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webSet --value "${target_Biodata}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --simulatehuman  --comment "klik biodata report"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman
+webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  biodata_File_Name=value
+replaceText --texttoparse "${biodata_File_Name}" --textpattern "/" --replacement _ biodata_File_Name=value
+delay --timeout "00:00:05"
+//	Assignment
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webSet --value "${target_Assignment}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --simulatehuman  --comment "klik assignment report"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman
+webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  assignment_File_Name=value
+replaceText --texttoparse "${assignment_File_Name}" --textpattern "/" --replacement _ assignment_File_Name=value
+delay --timeout "00:00:05"
+//	Address
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webClick --isdoubleclick  --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webSet --value "${target_Address}" --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[2]/div/div[1]/div/div/ng-select-global/div/ng-select/div/div/div[2]/input" --simulatehuman
+webWaitElement --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[2]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/ng-dropdown-panel/div/div[2]/div[1]" --simulatehuman  --comment "klik address report"
+webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[1]/div/div/div[3]/button[1]" --simulatehuman
+webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]" --simulatehuman
+webGet --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[2]/div/div/span/u" --simulatehuman  address_File_Name=value
+replaceText --texttoparse "${address_File_Name}" --textpattern "/" --replacement _ address_File_Name=value
+delay --timeout "00:00:05"
+//Proses Download
+evaluate --expression "${download_Assignment} & ${download_Address} & ${download_Biodata}" download_Availabillity=value
+while --left "${download_Availabillity}" --operator "Is_True" --negate
+	if --left "${download_Iteration}" --operator "Less_Than" --right 10
+		webWaitElement --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/div[1]/div/div[2]/button[2]"
+		//Cek Address
+		webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button_Address=value
+		if --left "${download_Button_Address}" --operator "Is_True"
+			setVar --name "${download_Address}" --value True
+			logMessage --message "Address Download Button Available" --type "Info"
+		elseIf --left "${download_Button_Address}" --operator "Is_True" --negate
+			setVar --name "${download_Address}" --value False
+			logMessage --message "Address Not Availble" --type "Info"
+		endIf
+		//Cek Assignment
+		webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[2]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button_Assignment=value
+		if --left "${download_Button_Assignment}" --operator "Is_True"
+			setVar --name "${download_Assignment}" --value True
+			logMessage --message "Assignment Download Button Available" --type "Info"
+		elseIf --left "${download_Button_Assignment}" --operator "Is_True" --negate
+			setVar --name "${download_Assignment}" --value False
+			logMessage --message "Assignment Not Availble" --type "Info"
+		endIf
+		//Cek Biodata
+		webWaitElement --selector "XPath" --xpath "//*[@id=\"print-section\"]/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[3]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman  download_Button_Biodata=value
+		if --left "${download_Button_Biodata}" --operator "Is_True"
+			setVar --name "${download_Biodata}" --value True
+			logMessage --message "Biodata Download Button Available" --type "Info"
+		elseIf --left "${download_Button_Biodata}" --operator "Is_True" --negate
+			setVar --name "${download_Biodata}" --value False
+			logMessage --message "BiodataNot Availble" --type "Info"
+		endIf
+		evaluate --expression "${download_Assignment} & ${download_Address} & ${download_Biodata}" download_Availabillity=value
+		delay --timeout "00:00:30"
+		webRefresh
+		incrementVar --number ${download_Iteration}
+	else
+		logMessage --message "Mohon maaf sudah lebih dari 5 menit" --type "Info"
+		stopExecution
+	endIf
+endWhile
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[1]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman
+delay --timeout "00:00:10"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[2]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman
+delay --timeout "00:00:10"
+webClick --selector "XPath" --xpath "/html/body/app-root/app-admin-layout/div/div/div/div[1]/process-manager-table/div[2]/div/div[3]/div/ngx-datatable-global/div/ngx-datatable/div/datatable-body/datatable-selection/datatable-scroller/datatable-row-wrapper[3]/datatable-body-row/div[2]/datatable-body-cell[6]/div/div/div/span[1]" --simulatehuman
+delay --timeout "00:00:30"
+logMessage --message "\nAddress File = ${address_Check}\r\nAssignment File = ${assignment_Check}\r\nBiodata File = ${biodata_Check}" --type "Info"
+webClose --name Web
+evaluate --expression "${download_Path}${assignment_File_Name}" assignment_Directory=value
+evaluate --expression "${download_Path}${biodata_File_Name}" biodata_Directory=value
+evaluate --expression "${download_Path}${address_File_Name}" adress_Directory=value
+evaluate --expression "${download_Path}BPJSK.xlsx" BPJSK_Eksternal_Directory=value
+evaluate --expression "${report_Path}One_Report.xlsx" one_Directory=value
+evaluate --expression "${report_Path}Other_Report.xlsx" other_Directory=value
+//Membaca File Excel
+//	Assignment
+excelOpen --file "${assignment_Directory}" assignment_File=value
+excelGetTable --file ${assignment_File} --getfirstsheet  --entiretable  max_Row_Assignment=rows
+decrementVar --number ${max_Row_Assignment}
+excelGetTable --file ${assignment_File} --getfirstsheet  --fromrow 4 --fromcolumn 1 --torow ${max_Row_Assignment} --tocolumn 33 row_Check=rows column_Check=columns assignment_Table=value
+excelClose --file ${assignment_File}
+//	Biodata
+excelOpen --file "${biodata_Directory}" biodata_File=value
+excelGetTable --file ${biodata_File} --getfirstsheet  --entiretable  max_Row_Biodata=rows
+decrementVar --number ${max_Row_Biodata}
+excelGetTable --file ${biodata_File} --getfirstsheet  --fromrow 3 --fromcolumn 1 --torow ${max_Row_Biodata} --tocolumn 31 max_Row_Biodata=rows column_Check=columns biodata_Table=value
+excelClose --file ${assignment_File}
+//	Report
+excelOpen --file "${report_Directory}" report_File=value
+//		New Employee
+excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 11 --hasheaders  newEmployee_One_Table=value row_Check=rows column_Check=columns
+excelGetTable --file ${report_File} --getfirstsheet  --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 11 --hasheaders  newEmployee_Other_Table=value row_Check=rows column_Check=columns
+//		Potongan Gaji
+excelGetTable --file ${report_File} --getfirstsheet  --fromrow 14 --fromcolumn 1 --torow 15 --tocolumn 15 --hasheaders  potongGaji_Table=value
+//		BPJSTK
+//			Pendaftaran
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 16 --hasheaders  pendaftaranBPJSTK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 16 --hasheaders  pendaftaranBPJSTK_Other_Table=value
+//			Penonaktifan
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 16 --fromcolumn 1 --torow 17 --tocolumn 4 --hasheaders  nonaktifBPJSTK_One_Table=value
+excelGetTable --file ${report_File} --sheet BPJSTK --fromrow 16 --fromcolumn 1 --torow 17 --tocolumn 4 --hasheaders  nonaktifBPJSTK_Other_Table=value
+//		BPJSK
+//			Aktif
+excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 9 --hasheaders  aktifBPJSK_One_Table=value
+excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 4 --fromcolumn 1 --torow 5 --tocolumn 9 --hasheaders  aktifBPJSK_Other_Table=value
+//			Non Aktif
+excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 8 --hasheaders  nonAktifBPJSK_One_Table=value
+excelGetTable --file ${report_File} --sheet "BPJS Kesehatan" --fromrow 17 --fromcolumn 1 --torow 18 --tocolumn 8 --hasheaders  nonAktifBPJSK_Other_Table=value
+//		Internship
+excelGetTable --file ${report_File} --sheet Internship --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 21 --hasheaders  Internship_One_Table=value
+excelGetTable --file ${report_File} --sheet Internship --fromrow 5 --fromcolumn 1 --torow 6 --tocolumn 21 --hasheaders  Internship_Other_Table=value
+excelClose --file ${assignment_File}
+//	Adress
+excelOpen --file "${adress_Directory}" adress_File=value
+excelGetTable --file ${adress_File} --getfirstsheet  --entiretable  --hasheaders  adress_Table=value
+excelClose --file ${adress_File}
+//Proses Input Data kedalam temp table
+//	New Employee
+while --left "${iteration}" --operator "Less_Than_Equal_To" --right "${max_Row_Biodata}"
+	getTableCell --dataTable ${biodata_Table} --column 7 --row ${iteration} tanggalMasuk_Data_Biodata=value
+	convertStringToNumber --text "${tanggalMasuk_Data_Biodata}" benchmark_NewEmployee=value
+	getTableCell --dataTable ${biodata_Table} --column 3 --row ${iteration} company_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 2 --row ${iteration} nama_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 5 --row ${iteration} department_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 30 --row ${iteration} accountNumber_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 28 --row ${iteration} bank_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 6 --row ${iteration} jabatan_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 20 --row ${iteration} NIK_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 23 --row ${iteration} BPJSTK_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 20 --row ${iteration} KTP_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 8 --row ${iteration} tanggalLahir_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 12 --row ${iteration} golonganDarah_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 13 --row ${iteration} jenisKelamin_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 14 --row ${iteration} statusPernikahan_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 16 --row ${iteration} nomorHP_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 19 --row ${iteration} email_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 22 --row ${iteration} NPWP_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 24 --row ${iteration} BPJSK_Data=value
+	getTableCell --dataTable ${biodata_Table} --column 1 --row ${iteration} unique_Data=value
+	findTableCell --dataTable ${assignment_Table} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" unique_Row=row
+	getTableCell --dataTable ${assignment_Table} --column 3 --row ${unique_Row} tanggalMasuk_Data_Assignment=value
+	convertStringToNumber --text "${tanggalMasuk_Data_Assignment}" benchmark_Internship=value
+	getTableCell --dataTable ${assignment_Table} --column 16 --row ${unique_Row} grade_Data=value
+	getTableCell --dataTable ${assignment_Table} --column 24 --row ${unique_Row} position_Data=value
+	getTableCell --dataTable ${assignment_Table} --column 10 --row ${unique_Row} tanggalSelesai_Data=value
+	getTableCell --dataTable ${assignment_Table} --column 5 --row ${unique_Row} statusKerja_Data=value
+	findTableCell --dataTable ${adress_Table} --value "${unique_Data}" --search "Columns" --index 1 --direction "Left2RightTop2Bottom" --occurrencetype "First" alamat_check=success unique_Row=row
+	if --left "${alamat_check}" --operator "Is_True"
+		getTableCell --dataTable ${adress_Table} --column 9 --row ${unique_Row} alamat_Data=value
+	else
+		setVar --name "${alamat_Data}"
+	endIf
+	//Klasifikasi Data
+	//	Benchmark Tanggal
+	//		New Employee, BPJSTK, BPJSK
+	if --left "${benchmark_NewEmployee}" --operator "Greater_Than_Equal_To" --right "${from_Date_NewEmployee}"
+		setVar --name "${min_NewEmployee_Date_Calculation}" --value True
+	else
+		setVar --name "${min_NewEmployee_Date_Calculation}" --value False
+	endIf
+	if --left "${benchmark_NewEmployee}" --operator "Less_Than" --right "${until_Date_NewEmployee}"
+		setVar --name "${max_NewEmployee_Date_Calculation}" --value True
+	else
+		setVar --name "${max_NewEmployee_Date_Calculation}" --value False
+	endIf
+	//		Internship
+	if --left "${benchmark_Internship}" --operator "Greater_Than_Equal_To" --right "${from_Date_Internship}\""
+		setVar --name "${min_Internship_Date_Calculation}" --value True
+	else
+		setVar --name "${min_Internship_Date_Calculation}" --value False
+	endIf
+	if --left "${benchmark_Internship}" --operator "Less_Than_Equal_To" --right "${until_Date_Internship}\""
+		setVar --name "${max_Internship_Date_Calculation}" --value True
+	else
+		setVar --name "${max_Internship_Date_Calculation}" --value False
+	endIf
+	//	Perusahaan
+	if --left "${company_Data}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+		setVar --name "${company_Classification}" --value True
+	else
+		setVar --name "${company_Classification}" --value False
+	endIf
+	//	Status Pekerjaan
+	if --left "${statusKerja_Data}" --operator "Contains" --right Internship
+		setVar --name "${internship_Group_Calculation}" --value True
+		setVar --name "${newEmployee_Group_Calculation}" --value False
+	else
+		setVar --name "${newEmployee_Group_Calculation}" --value True
+		setVar --name "${internship_Group_Calculation}" --value False
+	endIf
+	//Kalkulasi kondisi data
+	evaluate --expression "${max_NewEmployee_Date_Calculation}&${min_NewEmployee_Date_Calculation}&${newEmployee_Group_Calculation}" newEmployee_Classification=value
+	evaluate --expression "${max_Internship_Date_Calculation}&${min_Internship_Date_Calculation}&${internship_Group_Calculation}" internship_Classification=value
+	evaluate --expression "${newEmployee_Classification} == ${internship_Classification}" skip=value
+	//	logMessage --message "\r\n${iteration}\r\n\r\n${max_NewEmployee_Date_Calculation}\r\n${min_NewEmployee_Date_Calculation}\r\n${newEmployee_Group_Calculation}\r\nnew employee = ${newEmployee_Classification}\r\n\r\n${max_Internship_Date_Calculation}\r\n${min_Internship_Date_Calculation}\r\n${internship_Group_Calculation}\r\ninternship = ${internship_Classification}\r\n\r\nskip=${skip}" --type "Info"
+	//Memasukan data sesuai klasifikasi perusahaan
+	if --left "${newEmployee_Classification}" --operator "Is_True"
+		//New Emplotyee, BPJSTK, BPJSK
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Biodata}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_One_Table}
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"${alamat_Data}\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"${email_Data}\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_One_Table}
+			addRow --valuesmapping "{\"No\":\"${one_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_One_Table}
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			//			logMessage --message "\r\n${iteration}\r\nNew One" --type "Info"
+			incrementVar --number ${one_Iteration}
+			incrementVar --number ${iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Department\":\"${department_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Bank\":\"${bank_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Biodata}\",\"Golongan  Grade \":\"${grade_Data}\",\"Keterangan\":\"null\"}" --dataTable ${newEmployee_Other_Table}
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Organization\":\"${company_Data}\",\"BPJSTK\":\"${BPJSTK_Data}\",\"KTP\":\"${KTP_Data}\",\"Tanggal Lahir\":\"${tanggalLahir_Data}\",\"Golongan Darah\":\"${golonganDarah_Data}\",\"Nama Ibu\":\"null\",\"Jenis Kelamin\":\"${jenisKelamin_Data}\",\"Status Pernikahan\":\"${statusPernikahan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Tanggal berakhir kontrak\":\"${tanggalSelesai_Data}\",\"Alamat \":\"${alamat_Data}\",\"No HP\":\"${nomorHP_Data}\",\"Email\":\"${email_Data}\",\"NPWP\":\"${NPWP_Data}\"}" --dataTable ${pendaftaranBPJSTK_Other_Table}
+			addRow --valuesmapping "{\"No\":\"${other_Iteration}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"No. BPJS Kesehatan\":\"${BPJSK_Data}\",\"KTP\":\"${KTP_Data}\",\"NIK\":\"${NIK_Data}\",\"Jabatan\":\"${jabatan_Data}\",\"Status Pekerjaan\":\"${statusKerja_Data}\",\"Notes\":\"null\"}" --dataTable ${aktifBPJSK_Other_Table}
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			//			logMessage --message "\r\n${iteration}\r\nNew Other" --type "Info"
+			incrementVar --number ${other_Iteration}
+			incrementVar --number ${iteration}
+		endIf
+	elseIf --left "${internship_Classification}" --operator "Is_True"
+		//Internship
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${internship_One_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_One_Table}
+			//			logMessage --message "\r\n${iteration}\r\nInternship One" --type "Info"
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			setVar --name "${internship_Group_Calculation}" --value False
+			incrementVar --number ${internship_One_Iteration}
+			incrementVar --number ${iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate
+			addRow --valuesmapping "{\"No\":\"${internship_Other_Iteration}\",\"NIK\":\"${NIK_Data}\",\"Nama\":\"${nama_Data}\",\"Company\":\"${company_Data}\",\"Bank\":\"${bank_Data}\",\"Acc Number\":\"${accountNumber_Data}\",\"Last Day\":\"${tanggalSelesai_Data}\",\"Tanggal Masuk\":\"${tanggalMasuk_Data_Assignment}\",\"Golongan  Grade\":\"${grade_Data}\",\"Gaji Pokok\":\"null\",\"Tunjangan Kehadiran/hari\":\"null\",\"Tunjangan Kerajinan/hari\":\"null\",\"Tunj Jabatan\":\"null\",\"Tunjangan Transportasi/perumhn\":\"null\",\"Tunjangan Pulsa & Bensin\":\"null\",\"Hari Kerja Normal\":\"null\",\"Hari Kerja Karyawan Bulan Sebelumnya\":\"null\",\"Gaji Bulan Sekarang\":\"null\",\"Keterangan\":\"null\"}" --dataTable ${Internship_Other_Table}
+			//			logMessage --message "\r\n${iteration}\r\nInternship Other" --type "Info"
+			setVar --name "${internship_Group_Calculation}" --value False
+			setVar --name "${newEmployee_Group_Calculation}" --value False
+			incrementVar --number ${internship_Other_Iteration}
+			incrementVar --number ${iteration}
+		endIf
+	elseIf --left "${skip}" --operator "Is_True"
+		incrementVar --number ${iteration}
+	endIf
+endWhile
+//Pengambilan data eksternal BPJSK
+setVars --assignments "{\"${aktifBPJSK_One_Iteration}\":\"${one_Iteration}\",\"${aktifBPJSK_Other_Iteration}\":\"${other_Iteration}\"}"
+excelOpen --file "${BPJSK_Eksternal_Directory}" BPJSK_Eksternal_File=value
+excelRenameWorksheet --file ${BPJSK_Eksternal_File} --index 2 --newname 2
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+logMessage --message "\r\none\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+while --left "${value_Check}" --operator "Is_Empty" --negate
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 Notes_Data_Eksternal=value
+	logMessage --message "\r\ntwo\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+	if --left "${Notes_Data_Eksternal}" --operator "Contains" --right DONE
+		logMessage --message "\r\nthree\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	elseIf --left "${Notes_Data_Eksternal}" --operator "Equal_To" --right "Sudah terdaftar"
+		logMessage --message "\r\nfour\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	else
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 2 nama_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 3 company_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 4 noBPJSK_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 5 KTP_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 6 NIK_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 7 jabatan_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 8 status_Data_Eksternal=value
+		excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 Notes_Data_Eksternal=value
+		if --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+			setVar --name "${company_Classification}" --value True
+		elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+			setVar --name "${company_Classification}" --value True
+		elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+			setVar --name "${company_Classification}" --value True
+		else
+			setVar --name "${company_Classification}" --value False
+		endIf
+		if --left "${company_Classification}" --operator "Is_True"
+			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_One_Table}
+			logMessage --message "\r\nfive\r\n${row}\r\n" --type "Info"
+			incrementVar --number ${row}
+			incrementVar --number ${aktifBPJSK_One_Iteration}
+		elseIf --left "${company_Classification}" --operator "Is_True" --negate
+			addRow --valuesmapping "{\"No\":\"${aktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"Company\":\"${company_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"KTP\":\"${KTP_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Jabatan\":\"${jabatan_Data_Eksternal}\",\"Status Pekerjaan\":\"${status_Data_Eksternal}\",\"Notes\":\"${Notes_Data_Eksternal}\"}" --dataTable ${aktifBPJSK_Other_Table}
+			logMessage --message "\r\nsix\r\n${row}\r\n" --type "Info"
+			incrementVar --number ${row}
+			incrementVar --number ${aktifBPJSK_Other_Iteration}
+		endIf
+	endIf
+endWhile
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+while --left "${value_Check}" --operator "Is_Empty"
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	logMessage --message "\r\nseven\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+	setVar --name "${row}" --value "${row}"
+	incrementVar --number ${row}
+endWhile
+//Non aktif BPJSK Eksternal
+evaluate --expression "${row}+2" row=value
+excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+while --left "${value_Check}" --operator "Is_Empty" --negate
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 1 value_Check=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 2 nama_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 3 company_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 4 noBPJSK_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 5 email_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 6 NIK_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 7 noHP_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 8 alasan_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 9 tmt_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 10 noSurat_Data_Eksternal=value
+	excelGet --file ${BPJSK_Eksternal_File} --sheet 2 --row ${row} --column 11 Notes_Data_Eksternal=value
+	if --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. IDStar Cipta Teknologi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Drife Solusi Integrasi"
+		setVar --name "${company_Classification}" --value True
+	elseIf --left "${company_Data_Eksternal}" --operator "Equal_To" --right "PT. Indonesia Futura Teknologi"
+		setVar --name "${company_Classification}" --value True
+	else
+		setVar --name "${company_Classification}" --value False
+	endIf
+	if --left "${company_Classification}" --operator "Is_True"
+		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_One_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_One_Table}
+		//		logMessage --message "\r\nnine\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+		incrementVar --number ${nonAktifBPJSK_One_Iteration}
+	elseIf --left "${company_Classification}" --operator "Is_True" --negate
+		addRow --valuesmapping "{\"No\":\"${nonAktifBPJSK_Other_Iteration}\",\"Nama\":\"${nama_Data_Eksternal}\",\"No. BPJS Kesehatan\":\"${noBPJSK_Data_Eksternal}\",\"NIK\":\"${NIK_Data_Eksternal}\",\"Alasan Pemutusan Hubungan Kerja\":\"${alasan_Data_Eksternal}\",\"Terhitung Mulai Tanggal (TMT)\":\"${tmt_Data_Eksternal}\",\"Nomor Surat Penonaktifan\":\"${noSurat_Data_Eksternal}\"}" --dataTable ${nonAktifBPJSK_Other_Table}
+		//		logMessage --message "\r\nten\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+		incrementVar --number ${nonAktifBPJSK_Other_Iteration}
+	else
+		//		logMessage --message "\r\neleven\r\n${row}\r\n" --type "Info"
+		incrementVar --number ${row}
+	endIf
+endWhile
+//logMessage --message "\r\ntwelve\r\n${row}\r\n${value_Check}\r\n" --type "Info"
+excelClose --file ${BPJSK_Eksternal_File}
+//Memasukan value ke report
+//	One Report
+//		New Employee
+excelOpen --file "${one_Directory}" one_File=value
+deleteRows --indexes 1 --dataTable ${newEmployee_One_Table}
+excelSetTable --dataTable ${newEmployee_One_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell A5
+excelGetTable --file ${one_File} --getfirstsheet  --entiretable  newEmployee_One_Row=rows
+evaluate --expression "${newEmployee_One_Row}+2" one_Excel_Iteration=value
+//		Pemotongan Gaji Karyawan
+excelSet --value "Pemotongan Gaji Karyawan" --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Excel_Iteration}"
+incrementVar --number ${one_Excel_Iteration}
+excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${one_File} --getfirstsheet  --usingcell  --cell "A${one_Excel_Iteration}"
+//		BPJSTK
+deleteRows --indexes 1 --dataTable ${pendaftaranBPJSTK_One_Table}
+excelSetTable --dataTable ${pendaftaranBPJSTK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${one_File} --sheet BPJSTK --entiretable  BPJSTKAktif_One_Row=rows
+evaluate --expression "${BPJSTKAktif_One_Row}+2" one_Excel_Iteration=value
+//		Non aktif BPJSTK
+excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Excel_Iteration}"
+incrementVar --number ${one_Excel_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet BPJSTK --usingcell  --cell "A${one_Excel_Iteration}"
+//		BPJSK
+deleteRows --indexes 1 --dataTable ${aktifBPJSK_One_Table}
+excelSetTable --dataTable ${aktifBPJSK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
+excelGetTable --file ${one_File} --sheet "BPJS Kesehatan" --entiretable  BPJSKAktif_One_Row=rows
+evaluate --expression "${BPJSKAktif_One_Row}+2" one_Excel_Iteration=value
+//		Non aktif BPJSK
+excelSet --value "Penonaktifan BPJS Kesehatan" --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${one_Excel_Iteration}"
+incrementVar --number ${one_Excel_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_One_Table} --headers  --file ${one_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${one_Excel_Iteration}"
+//		Internship
+deleteRows --indexes 1 --dataTable ${Internship_One_Table}
+excelSetTable --dataTable ${Internship_One_Table} --headers  --file ${one_File} --sheet Internship --usingcell  --cell A5
+excelClose --file ${one_File} --save
+//	Other Report
+//		New Employee
+excelOpen --file "${other_Directory}" other_File=value
+deleteRows --indexes 1 --dataTable ${newEmployee_Other_Table}
+excelSetTable --dataTable ${newEmployee_Other_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell A5
+excelGetTable --file ${other_File} --getfirstsheet  --entiretable  newEmployee_Other_Row=rows
+evaluate --expression "${newEmployee_Other_Row}+2" other_Excel_Iteration=value
+//		Pemotongan Gaji Karyawan
+excelSet --value "Pemotongan Gaji Karyawan" --file ${other_File} --getfirstsheet  --usingcell  --cell "A${other_Excel_Iteration}"
+incrementVar --number ${other_Excel_Iteration}
+excelSetTable --dataTable ${potongGaji_Table} --headers  --file ${other_File} --getfirstsheet  --usingcell  --cell "A${other_Excel_Iteration}"
+//		BPJSTK
+deleteRows --indexes 1 --dataTable ${pendaftaranBPJSTK_Other_Table}
+excelSetTable --dataTable ${pendaftaranBPJSTK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell A4
+excelGetTable --file ${other_File} --sheet BPJSTK --entiretable  BPJSTKAktif_Other_Row=rows
+evaluate --expression "${BPJSTKAktif_Other_Row}+2" other_Excel_Iteration=value
+//		Non aktif BPJSTK
+excelSet --value "Penonaktifan BPJS Ketenagakerjaan" --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Excel_Iteration}"
+incrementVar --number ${other_Excel_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet BPJSTK --usingcell  --cell "A${other_Excel_Iteration}"
+//		BPJSK
+deleteRows --indexes 1 --dataTable ${aktifBPJSK_Other_Table}
+excelSetTable --dataTable ${aktifBPJSK_Other_Table} --headers  --file ${Other_File} --sheet "BPJS Kesehatan" --usingcell  --cell A4
+excelGetTable --file ${Other_File} --sheet "BPJS Kesehatan" --entiretable  BPJSKAktif_Other_Row=rows
+evaluate --expression "${BPJSKAktif_Other_Row}+2" other_Excel_Iteration=value
+//		Non aktif BPJSK
+excelSet --value "Penonaktifan BPJS Kesehatan" --file ${other_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${other_Excel_Iteration}"
+incrementVar --number ${other_Excel_Iteration}
+excelSetTable --dataTable ${nonAktifBPJSK_Other_Table} --headers  --file ${other_File} --sheet "BPJS Kesehatan" --usingcell  --cell "A${other_Excel_Iteration}"
+//		Internship
+deleteRows --indexes 1 --dataTable ${Internship_Other_Table}
+excelSetTable --dataTable ${Internship_Other_Table} --headers  --file ${other_File} --sheet Internship --usingcell  --cell A5
+excelClose --file ${other_File} --save*	23.0.10.0
